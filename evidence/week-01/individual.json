@@ -1,19 +1,25 @@
 {
-  "_instructions": "Eliminen este campo cuando terminen. Conserven exactamente tres integrantes y usen SHA Git completos de commits creados por cada persona.",
   "schemaVersion": 1,
   "week": 1,
-  "teamId": "REEMPLAZAR_CON_ID_DEL_EQUIPO",
+  "teamId": "10",
   "members": [
     {
-      "studentId": "REEMPLAZAR_INTEGRANTE_1",
-      "commitShas": ["REEMPLAZAR_CON_SHA_COMPLETO"],
-      "files": ["REEMPLAZAR_CON_ARCHIVO_TRABAJADO"],
-      "tests": [],
+      "studentId": "Sánchez Ventura Axel Eduardo - 3523110158",
+      "commitShas": [
+        "512e1aa935bc607a9ecb4bc27f1866421573c34"
+      ],
+      "files": [
+        "App.tsx",
+        "reports/week-01/baseline.json"
+      ],
+      "tests": [
+        "npm run test:smoke"
+      ],
       "reviews": [],
-      "prediction": "REEMPLAZAR_CON_LO_QUE_ESPERABA_OBSERVAR",
-      "command": "REEMPLAZAR_CON_EL_COMANDO_EJECUTADO",
-      "observedResult": "REEMPLAZAR_CON_LO_QUE_OCURRIO",
-      "explanation": "REEMPLAZAR_CON_LA_EXPLICACION_TECNICA"
+      "prediction": "Esperaba que la prueba fallara después de cambiar temporalmente el testID de backend-status a backend-status-broken, porque la prueba busca específicamente el elemento con testID backend-status.",
+      "command": "npm run test:smoke",
+      "observedResult": "La prueba falló con el mensaje \"Unable to find an element with testID: backend-status\". Después de restaurar testID=\"backend-status\", la misma prueba terminó con 1 test suite passed y 1 test passed.",
+      "explanation": "La falla fue causada por una discrepancia entre el testID definido temporalmente en App.tsx y el testID que la prueba smoke espera encontrar. Al restaurar el identificador original sin modificar la prueba, la comprobación volvió a pasar."
     },
     {
       "studentId": "REEMPLAZAR_INTEGRANTE_2",
