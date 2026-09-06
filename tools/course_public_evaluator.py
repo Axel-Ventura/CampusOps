@@ -8,6 +8,7 @@ import datetime as dt
 import json
 import re
 import subprocess
+import os
 from pathlib import Path
 from typing import Any
 
@@ -251,21 +252,22 @@ def main() -> int:
         add(checks, "frozen_sha", ok_tag and tag_sha.strip() == sha, f"tag={expected_tag} tagSha={tag_sha.strip()} head={sha}")
 
     if args.execute_toolchain:
-        commands = [["npm", "run", "typecheck"], ["npm", "run", "lint"], ["npm", "run", "audit:ci"]]
+        npm = "npm.cmd" if os.name == "nt" else "npm"
+        commands = [[npm, "run", "typecheck"], [npm, "run", "lint"], [npm, "run", "audit:ci"]]
         if args.mode == "verify":
-            commands.append(["npm", "run", "test:smoke"])
+            commands.append([npm, "run", "test:smoke"])
             if args.week in {5, 6, 8, 9, 10}:
-                commands.append(["npm", "run", "backend:self-test"])
+                commands.append([npm, "run", "backend:self-test"])
             if args.week == 11:
-                commands.append(["npm", "run", "bundle:release"])
+                commands.append([npm, "run", "bundle:release"])
             if args.week in {12, 13}:
-                commands.append(["npm", "run", "package:android:ci"])
+                commands.append([npm, "run", "package:android:ci"])
         elif args.mode == "public":
             if args.week == 11:
-                commands.append(["npm", "run", "test:coverage:week11"])
+                commands.append([npm, "run", "test:coverage:week11"])
             else:
                 test_path = f"course-tests/public/week-{week_key}.test.ts"
-                commands.append(["npm", "test", "--", "--ci", "--runInBand", test_path])
+                commands.append([npm, "test", "--", "--ci", "--runInBand", test_path])
         for index, command in enumerate(commands, 1):
             passed, output = run(repo, command)
             add(checks, f"toolchain_{index}", passed, f"{' '.join(command)}\n{output}")
