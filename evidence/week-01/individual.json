@@ -22,15 +22,20 @@
       "explanation": "La falla fue causada por una discrepancia entre el testID definido temporalmente en App.tsx y el testID que la prueba smoke espera encontrar. Al restaurar el identificador original sin modificar la prueba, la comprobación volvió a pasar."
     },
     {
-      "studentId": "REEMPLAZAR_INTEGRANTE_2",
+      "studentId": "Paniagua González Concepción Guadalupe - 3523110114",
       "commitShas": ["REEMPLAZAR_CON_SHA_COMPLETO"],
-      "files": ["REEMPLAZAR_CON_ARCHIVO_TRABAJADO"],
+      "files": [
+        "docs/problem-definition.md", 
+        "docs/risk-register.md"
+      ],
       "tests": [],
-      "reviews": [],
-      "prediction": "REEMPLAZAR_CON_LO_QUE_ESPERABA_OBSERVAR",
-      "command": "REEMPLAZAR_CON_EL_COMANDO_EJECUTADO",
-      "observedResult": "REEMPLAZAR_CON_LO_QUE_OCURRIO",
-      "explanation": "REEMPLAZAR_CON_LA_EXPLICACION_TECNICA"
+      "reviews": [
+        "Revisión manual de docs/problem-definition.md y docs/risk-register.md tomando como referencia docs/CAMPUSOPS.md para verificar que la definición del problema, los actores y los riesgos identificados coincidieran entre sí"
+      ],
+      "prediction": "Esperaba que git detectara cambios en ambos archivos, ya que reemplacé el contenido de plantilla (los corchetes con instrucciones) por la definición real del problema, alcance, actores, flujo y criterios de aceptación, y por los tres riesgos priorizados con su análisis",
+      "command": "git diff --stat docs/problem-definition.md docs/risk-register.md",
+      "observedResult": "El comando mostró 37 líneas modificadas en problem-definition.md y 11 líneas modificadas en risk-register.md, confirmando que el contenido de plantilla fue reemplazado por completo.",
+      "explanation": "Los cambios corresponden a que sustituí cada sección entre corchetes de las plantillas por el análisis real del equipo: la definición del problema y alcance de CampusOps, las responsabilidades de cada actor, el flujo de estados de una incidencia, tres criterios de aceptación verificables, y el registro de tres riesgos con su probabilidad, impacto, mitigación y forma de comprobación, basándome en docs/CAMPUSOPS.md como referencia"
     },
     {
       "studentId": "REEMPLAZAR_INTEGRANTE_3",
