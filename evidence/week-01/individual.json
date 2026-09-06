@@ -23,7 +23,7 @@
     },
     {
       "studentId": "Paniagua González Concepción Guadalupe - 3523110114",
-      "commitShas": ["REEMPLAZAR_CON_SHA_COMPLETO"],
+      "commitShas": ["32d875b0666c4accce23941f00552f7cb5f2792a"],
       "files": [
         "docs/problem-definition.md", 
         "docs/risk-register.md"
@@ -39,7 +39,7 @@
     },
     {
       "studentId": "Reyes Torres Manelic Alitzel - 3523110736",
-      "commitShas": ["ola viego"],
+      "commitShas": ["4a458475814b888a90d2c7f1e65258b21b72f0a8"],
       "files": [
         "docs/problem-definition.md",
         "docs/risk-register.md",
