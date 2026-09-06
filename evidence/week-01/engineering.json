@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "week": 1,
-  "commitSha": "2303d29a3305ceccd45c6ce7b9a3a4ed2747503c",
+  "commitSha": "8972dcb2e06308b768dffaeb937f4a1109b22c77",
   "decision": "Priorizar el manejo de conflictos de sincronización para el trabajo offline de los técnicos, evitando que una actualización sobrescriba otra y preservando el historial de las incidencias.",
   "alternatives": [
     "Sobrescribir automáticamente los cambios más recientes cuando se detecte un conflicto de sincronización.",
