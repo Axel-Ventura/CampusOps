@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "week": 2,
+  "teamId": "10",
+  "members": [
+    {
+      "studentId": "Sánchez Ventura Axel Eduardo - 3523110158",
+      "commitShas": [
+        "SHA_REAL_DE_TU_COMMIT"
+      ],
+      "files": [
+        "docs/adr/ADR-001-architecture.md"
+      ],
+      "tests": [],
+      "reviews": [
+        "Revisión de la decisión arquitectónica del equipo"
+      ],
+      "prediction": "La arquitectura por capas permitirá separar responsabilidades y facilitar el reemplazo de implementaciones mediante contratos.",
+      "command": "Pendiente de comprobación final de Semana 2",
+      "observedResult": "Pendiente",
+      "explanation": "Elaboré el ADR-001, comparando dos alternativas y justificando la arquitectura por capas según testabilidad, complejidad y cambio de proveedor."
+    },
+    {
+      "studentId": "POR_COMPLETAR_INTEGRANTE_2",
+      "commitShas": [
+        "POR_COMPLETAR"
+      ],
+      "files": [
+        ".........."
+      ],
+      "tests": [],
+      "reviews": [],
+      "prediction": "POR_COMPLETAR",
+      "command": "POR_COMPLETAR",
+      "observedResult": "POR_COMPLETAR",
+      "explanation": "POR COMPLETAR POR EL INTEGRANTE 2"
+    },
+
+
+    
+    {
+      "studentId": "POR_COMPLETAR_INTEGRANTE_3",
+      "commitShas": [
+        "POR_COMPLETAR"
+      ],
+      "files": [
+        "POR_COMPLETAR"
+      ],
+      "tests": [],
+      "reviews": [],
+      "prediction": "POR_COMPLETAR",
+      "command": "POR_COMPLETAR",
+      "observedResult": "POR_COMPLETAR",
+      "explanation": "POR COMPLETAR POR EL INTEGRANTE 3"
+    }
+  ]
+}
