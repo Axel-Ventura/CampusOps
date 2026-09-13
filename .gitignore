@@ -11,3 +11,8 @@ dist/
 *.p8
 *.p12
 reports/**/generated-*
+
+# macOS system files
+__MACOSX/
+._*
+.DS_Store
