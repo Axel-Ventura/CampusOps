@@ -8,7 +8,7 @@ export class InMemoryIncidentRepository implements IncidentRepository {
       title: 'Fuga de agua en Laboratorio 2',
       description: 'Se detectó una fuga constante en la tubería principal bajo la tarja.',
       status: 'open',
-      category: 'infrastructure',
+      category: 'safety',
       location: {
         source: 'manual',
         label: 'Edificio B, Planta Baja, Lab 2',
