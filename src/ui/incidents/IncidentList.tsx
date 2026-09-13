@@ -34,7 +34,7 @@ export const IncidentList: React.FC = () => {
           <p><strong>Categoría:</strong> {selectedIncident.category}</p>
           <p><strong>Estado:</strong> {selectedIncident.status}</p>
           <p><strong>Descripción:</strong> {selectedIncident.description}</p>
-          <p><strong>Ubicación:</strong> {selectedIncident.location.building}, {selectedIncident.location.room}</p>
+          <p><strong>Ubicación:</strong> {selectedIncident.location.label}</p>
         </div>
       )}
     </div>

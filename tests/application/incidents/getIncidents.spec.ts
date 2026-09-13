@@ -9,6 +9,6 @@ describe('GetIncidentsUseCase', () => {
     const result = await useCase.execute();
 
     expect(result).toHaveLength(2);
-    expect(result[0].id).toBe('campus-inc-001');
+    expect(result[0]?.id).toBe('campus-inc-001');
   });
 });
