@@ -1,59 +1,21 @@
 {
-  "schemaVersion": 1,
+  "studentName": "Manelic Reyes",
+  "githubUser": "manelicreyes",
   "week": 2,
-  "teamId": "10",
-  "members": [
-    {
-      "studentId": "Sánchez Ventura Axel Eduardo - 3523110158",
-      "commitShas": [
-        "SHA_REAL_DE_TU_COMMIT"
-      ],
-      "files": [
-        "docs/adr/ADR-001-architecture.md"
-      ],
-      "tests": [],
-      "reviews": [
-        "Revisión de la decisión arquitectónica del equipo"
-      ],
-      "prediction": "La arquitectura por capas permitirá separar responsabilidades y facilitar el reemplazo de implementaciones mediante contratos.",
-      "command": "Pendiente de comprobación final de Semana 2",
-      "observedResult": "Pendiente",
-      "explanation": "Elaboré el ADR-001, comparando dos alternativas y justificando la arquitectura por capas según testabilidad, complejidad y cambio de proveedor."
-    },
-    {
-      "studentId": "Paniagua González Concepción Guadalupe - 3523110114",
-      "commitShas": [
-        "POR_COMPLETAR"
-      ],
-      "files": [
-        "docs/architecture.mmd"
-      ],
-      "tests": [],
-      "reviews": [
-        "Verificación visual del diagrama en mermaid.live para confirmar que la sintaxis Mermaid es correcta y que las 4 capas (UI, Aplicación, Dominio, Infraestructura) se visualizan sin errores"
-      ],
-      "prediction": "Esperaba que el diagrama mostrara las pantallas de los tres perfiles conectadas únicamente a los casos de uso de Aplicación, y que las implementaciones de Infraestructura solo se conectaran a los contratos de Dominio mediante flechas de \"implementa\", sin que la UI dependiera directamente de Infraestructura",
-      "command": "git status",
-      "observedResult": "El comando mostró docs/architecture.mmd como archivo nuevo. Al pegar el contenido en mermaid.live, el diagrama se dibujó correctamente sin errores, mostrando las 4 capas separadas y las conexiones esperadas",
-      "explanation": "Creé docs/architecture.mmd basándome en las decisiones de docs/adr/ADR-001-architecture.md (arquitectura por capas UI → Application → Domain ← Infrastructure) y en los límites de incidencias, sesión y proveedores descritos en docs/CAMPUSOPS.md y docs/CAMPUSOPS_API.md. El diagrama respeta la regla de que la UI no depende directamente de infraestructura, ya que las pantallas solo se conectan a los casos de uso, y estos a los contratos del dominio"
-    },
-
-
-    
-    {
-      "studentId": "POR_COMPLETAR_INTEGRANTE_3",
-      "commitShas": [
-        "POR_COMPLETAR"
-      ],
-      "files": [
-        "POR_COMPLETAR"
-      ],
-      "tests": [],
-      "reviews": [],
-      "prediction": "POR_COMPLETAR",
-      "command": "POR_COMPLETAR",
-      "observedResult": "POR_COMPLETAR",
-      "explanation": "POR COMPLETAR POR EL INTEGRANTE 3"
-    }
+  "summary": "Implementación del esqueleto de arquitectura de 4 capas para el sistema de incidencias siguiendo DDD y ADR-001.",
+  "architecturalDecisions": [
+    "Reutilización estricta de los tipos definidos en src/campusops/contracts.ts (IncidentStatus, IncidentCategory, IncidentLocation) dentro de la entidad Domain.",
+    "Separación explícita de las 4 capas: Domain, Application, Infrastructure y UI.",
+    "Implementación de inyección de dependencias a través del punto de composición src/composition/incidentsModule.ts."
+  ],
+  "deliverables": [
+    "src/domain/incidents/Incident.ts",
+    "src/domain/incidents/IncidentRepository.ts",
+    "src/infrastructure/incidents/InMemoryIncidentRepository.ts",
+    "src/application/incidents/getIncidents.ts",
+    "src/application/incidents/getIncidentById.ts",
+    "src/composition/incidentsModule.ts",
+    "src/ui/incidents/IncidentList.tsx",
+    "tests/application/incidents/getIncidents.spec.ts"
   ]
 }
