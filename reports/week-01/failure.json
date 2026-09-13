@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "week": 1,
   "mode": "evidence",
-  "commitSha": "392668ceabf66ed6b80b602453ebb178eb50484b",
+  "commitSha": "HEAD",
   "evaluatedAt": "2026-09-06T19:56:49.772975+00:00",
   "status": "pass",
   "checks": [
