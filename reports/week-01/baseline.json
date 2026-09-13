@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "week": 1,
-  "commitSha": "c3d1e399899d95318c6db81fb923e06f1e4c268a",
+  "commitSha": "HEAD",
   "generatedAt": "2026-09-05T15:12:27-06:00",
   "checks": [
     {
