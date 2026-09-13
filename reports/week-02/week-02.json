@@ -1,0 +1,16 @@
+{
+  "week": 2,
+  "team": "E01",
+  "members": [
+    {
+      "role": "Integrante 3 (MART)",
+      "name": "Reyes Torres Manelic Alitzel",
+      "sha": "55c0bc3480935ca956b69940d1efca44f0bd3b7c",
+      "artifacts": [
+        "tests/manifest.spec.mjs",
+        "README.md",
+        "evidence/individual.md"
+      ]
+    }
+  ]
+}
