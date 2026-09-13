@@ -21,19 +21,21 @@
       "explanation": "Elaboré el ADR-001, comparando dos alternativas y justificando la arquitectura por capas según testabilidad, complejidad y cambio de proveedor."
     },
     {
-      "studentId": "POR_COMPLETAR_INTEGRANTE_2",
+      "studentId": "Paniagua González Concepción Guadalupe - 3523110114",
       "commitShas": [
         "POR_COMPLETAR"
       ],
       "files": [
-        ".........."
+        "docs/architecture.mmd"
       ],
       "tests": [],
-      "reviews": [],
-      "prediction": "POR_COMPLETAR",
-      "command": "POR_COMPLETAR",
-      "observedResult": "POR_COMPLETAR",
-      "explanation": "POR COMPLETAR POR EL INTEGRANTE 2"
+      "reviews": [
+        "Verificación visual del diagrama en mermaid.live para confirmar que la sintaxis Mermaid es correcta y que las 4 capas (UI, Aplicación, Dominio, Infraestructura) se visualizan sin errores"
+      ],
+      "prediction": "Esperaba que el diagrama mostrara las pantallas de los tres perfiles conectadas únicamente a los casos de uso de Aplicación, y que las implementaciones de Infraestructura solo se conectaran a los contratos de Dominio mediante flechas de \"implementa\", sin que la UI dependiera directamente de Infraestructura",
+      "command": "git status",
+      "observedResult": "El comando mostró docs/architecture.mmd como archivo nuevo. Al pegar el contenido en mermaid.live, el diagrama se dibujó correctamente sin errores, mostrando las 4 capas separadas y las conexiones esperadas",
+      "explanation": "Creé docs/architecture.mmd basándome en las decisiones de docs/adr/ADR-001-architecture.md (arquitectura por capas UI → Application → Domain ← Infrastructure) y en los límites de incidencias, sesión y proveedores descritos en docs/CAMPUSOPS.md y docs/CAMPUSOPS_API.md. El diagrama respeta la regla de que la UI no depende directamente de infraestructura, ya que las pantallas solo se conectan a los casos de uso, y estos a los contratos del dominio"
     },
 
 
