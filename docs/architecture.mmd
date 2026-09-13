@@ -1,0 +1,68 @@
+flowchart TD
+    subgraph UI["Interfaz de Usuario"]
+        UI_Reportante["Pantallas Reportante<br/>crear, listar, detalle"]
+        UI_Tecnico["Pantallas Técnico<br/>asignadas, diagnóstico"]
+        UI_Coordinador["Pantallas Coordinador<br/>priorizar, asignar, cerrar"]
+    end
+
+    subgraph APP["Aplicación - Casos de uso"]
+        UC_Login["Iniciar sesión"]
+        UC_ListIncidents["Listar incidencias"]
+        UC_GetIncidentDetail["Ver detalle de incidencia"]
+        UC_CreateIncident["Crear incidencia"]
+        UC_AssignIncident["Asignar incidencia"]
+        UC_ResolveIncident["Resolver incidencia"]
+        UC_CloseIncident["Cerrar incidencia"]
+    end
+
+    subgraph DOMAIN["Dominio - Entidades y contratos"]
+        E_Incident["Entidad: Incidencia"]
+        E_Session["Entidad: Sesión"]
+        C_IncidentRepo[["Contrato: Repositorio de Incidencias"]]
+        C_SessionRepo[["Contrato: Repositorio de Sesión"]]
+        C_LocationProvider[["Contrato: Proveedor de Ubicación"]]
+    end
+
+    subgraph INFRA["Infraestructura - Implementaciones"]
+        Impl_InMemory["Repositorio en memoria<br/>datos ficticios - Semana 2"]
+        Impl_BackendApi["Adaptador de API del Backend<br/>/v1/incidents"]
+        Impl_Geocoding["Adaptador de Geocodificación<br/>/v1/geocoding"]
+        Impl_SecureStore["Almacenamiento seguro<br/>sesión y credenciales"]
+    end
+
+    UI_Reportante --> UC_CreateIncident
+    UI_Reportante --> UC_ListIncidents
+    UI_Reportante --> UC_GetIncidentDetail
+    UI_Tecnico --> UC_ListIncidents
+    UI_Tecnico --> UC_ResolveIncident
+    UI_Coordinador --> UC_AssignIncident
+    UI_Coordinador --> UC_CloseIncident
+    UI_Reportante -.-> UC_Login
+    UI_Tecnico -.-> UC_Login
+    UI_Coordinador -.-> UC_Login
+
+    UC_ListIncidents --> C_IncidentRepo
+    UC_GetIncidentDetail --> C_IncidentRepo
+    UC_CreateIncident --> C_IncidentRepo
+    UC_AssignIncident --> C_IncidentRepo
+    UC_ResolveIncident --> C_IncidentRepo
+    UC_CloseIncident --> C_IncidentRepo
+    UC_Login --> C_SessionRepo
+
+    C_IncidentRepo --> E_Incident
+    C_SessionRepo --> E_Session
+
+    Impl_InMemory -. implementa .-> C_IncidentRepo
+    Impl_BackendApi -. implementa .-> C_IncidentRepo
+    Impl_Geocoding -. implementa .-> C_LocationProvider
+    Impl_SecureStore -. implementa .-> C_SessionRepo
+
+    classDef ui fill:#cfe8ff,stroke:#1c6fb0
+    classDef app fill:#d9f2d0,stroke:#3a8f2f
+    classDef domain fill:#fff3c4,stroke:#b8890a
+    classDef infra fill:#f6d0d0,stroke:#b02e2e
+
+    class UI_Reportante,UI_Tecnico,UI_Coordinador ui
+    class UC_Login,UC_ListIncidents,UC_GetIncidentDetail,UC_CreateIncident,UC_AssignIncident,UC_ResolveIncident,UC_CloseIncident app
+    class E_Incident,E_Session,C_IncidentRepo,C_SessionRepo,C_LocationProvider domain
+    class Impl_InMemory,Impl_BackendApi,Impl_Geocoding,Impl_SecureStore infra
