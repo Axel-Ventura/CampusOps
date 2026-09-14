@@ -24,7 +24,11 @@ export const IncidentDetailScreen: React.FC<Props> = ({ incidentId, onBack }) =>
       <p><strong>Categoría:</strong> {incident.category}</p>
       <p><strong>Descripción:</strong> {incident.description}</p>
       <p>
+ feature/mart-esqueleto-incidencias
         <strong>Ubicación:</strong> {incident.location.building}, {incident.location.floor} ({incident.location.room})
+
+        <strong>Ubicación:</strong> {incident.location.label}
+ main
       </p>
     </div>
   );
