@@ -1,0 +1,12 @@
+{
+  "student": "Mart",
+  "task": "Esqueleto de incidencias",
+  "status": "completed",
+  "deliverables": [
+    "src/domain/incidents/",
+    "src/infrastructure/incidents/",
+    "src/application/incidents/",
+    "src/composition/incidentsModule.ts",
+    "src/ui/incidents/"
+  ]
+}
