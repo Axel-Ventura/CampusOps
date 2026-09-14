@@ -1,43 +1,61 @@
 import { Incident } from '../../domain/incidents/Incident';
 import { IncidentRepository } from '../../domain/incidents/IncidentRepository';
 
-const MOCK_INCIDENTS: any[] = [
-  {
-    id: 'campus-inc-001',
-    title: 'Fuga de agua en Laboratorio 3',
-    description: 'Se observa goteo constante debajo del lavabo principal.',
-    category: 'electrical',
-    status: 'open',
-    location: { source: 'manual' as const, label: 'Edificio A - Piso 2 - Lab 3', building: 'Edificio A', floor: 'Piso 2', room: 'Lab 3' },
-    createdAt: '2026-03-01T10:00:00Z',
-  },
-  {
-    id: 'campus-inc-002',
-    title: 'Proyector sin señal en Aula 102',
-    description: 'El cable HDMI está dañado y la pantalla parpadea.',
-    category: 'equipment',
-    status: 'in_progress',
-    location: { source: 'manual' as const, label: 'Edificio B - Piso 1 - Aula 102', building: 'Edificio B', floor: 'Piso 1', room: 'Aula 102' },
-    createdAt: '2026-03-01T11:30:00Z',
-  },
-  {
-    id: 'campus-inc-003',
-    title: 'Luz fundida en pasillo central',
-    description: 'El pasillo del tercer piso se encuentra a oscuras.',
-    category: 'maintenance',
-    status: 'resolved',
-    location: { source: 'manual' as const, label: 'Edificio Central - Piso 3 - Pasillo', building: 'Edificio Central', floor: 'Piso 3', room: 'Pasillo' },
-    createdAt: '2026-03-01T14:15:00Z',
-  },
-];
-
 export class InMemoryIncidentRepository implements IncidentRepository {
+  private incidents: Incident[] = [
+    {
+      id: 'campus-inc-001',
+      title: 'Proyector dañado en Aulas 2',
+      description: 'El proyector del salón 204 no enciende ni transmite señal.',
+      status: 'open',
+      category: 'maintenance',
+      location: {
+        source: 'manual',
+        label: 'Edificio A, Salón 204',
+        building: 'Edificio A',
+        floor: '2',
+        room: '204',
+      },
+      createdAt: '2026-09-14T10:00:00Z',
+    },
+    {
+      id: 'campus-inc-002',
+      title: 'Fuga de agua en Laboratorio B',
+      description: 'Fuga visible debajo del lavabo principal del laboratorio.',
+      status: 'in_progress',
+      category: 'maintenance',
+      location: {
+        source: 'manual',
+        label: 'Edificio C, Lab B',
+        building: 'Edificio C',
+        floor: '1',
+        room: 'Lab B',
+      },
+      createdAt: '2026-09-14T11:30:00Z',
+    },
+    {
+      id: 'campus-inc-003',
+      title: 'Falta de conexión WiFi en Biblioteca',
+      description: 'Intermitencia severa en la red inalámbrica del segundo piso.',
+      status: 'resolved',
+      category: 'maintenance',
+      location: {
+        source: 'manual',
+        label: 'Biblioteca Central, Piso 2',
+        building: 'Biblioteca',
+        floor: '2',
+        room: 'Sala de Estudio',
+      },
+      createdAt: '2026-09-14T12:00:00Z',
+    },
+  ];
+
   async getAll(): Promise<Incident[]> {
-    return [...MOCK_INCIDENTS];
+    return [...this.incidents];
   }
 
   async getById(id: string): Promise<Incident | null> {
-    const item = MOCK_INCIDENTS.find((inc) => inc.id === id);
-    return item ? { ...item } : null;
+    const found = this.incidents.find((inc) => inc.id === id);
+    return found ? { ...found } : null;
   }
 }
