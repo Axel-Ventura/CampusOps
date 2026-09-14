@@ -41,19 +41,31 @@
 
     
     {
-      "studentId": "POR_COMPLETAR_INTEGRANTE_3",
+      "studentId": "Manelic Alitzel Reyes Torres - 3523110736",
       "commitShas": [
-        "POR_COMPLETAR"
+        "AQUÍ_PONES_EL_SHA_QUE_TE_DIO_EL_COMANDO"
       ],
       "files": [
-        "POR_COMPLETAR"
+        "src/domain/incidents/Incident.ts",
+        "src/domain/incidents/IncidentRepository.ts",
+        "src/infrastructure/incidents/InMemoryIncidentRepository.ts",
+        "src/application/incidents/getIncidents.ts",
+        "src/application/incidents/getIncidentById.ts",
+        "src/application/incidents/__tests__/getIncidents.test.ts",
+        "src/composition/incidentsModule.ts",
+        "src/ui/incidents/IncidentListScreen.tsx",
+        "src/ui/incidents/IncidentDetailScreen.tsx"
       ],
-      "tests": [],
-      "reviews": [],
-      "prediction": "POR_COMPLETAR",
-      "command": "POR_COMPLETAR",
-      "observedResult": "POR_COMPLETAR",
-      "explanation": "POR COMPLETAR POR EL INTEGRANTE 3"
+      "tests": [
+        "src/application/incidents/__tests__/getIncidents.test.ts"
+      ],
+      "reviews": [
+        "Verificación del typecheck de TypeScript e integración de los casos de uso y repository en memoria de incidencias con Jest"
+      ],
+      "prediction": "Se esperaba que la arquitectura por capas aislara los modelos de datos de incidencias y permitiera consumir las incidencias en memoria mediante casos de uso sin depender de una base de datos real.",
+      "command": "npm run typecheck && npm test",
+      "observedResult": "El chequeo de tipos pasó exitosamente sin errores en TypeScript y el test unitario de getIncidents pasó 100% aprobado.",
+      "explanation": "Implementé el esqueleto del módulo de incidencias definiendo las entidades de Dominio, el repositorio InMemory, los casos de uso de Aplicación, el contenedor de Composición y las pantallas UI iniciales."
     }
   ]
 }
