@@ -4,8 +4,8 @@ export interface Incident {
   id: string;
   title: string;
   description: string;
-  category: any;
-  status: any;
-  location: any;
+  category: IncidentCategory;
+  status: IncidentStatus;
+  location: IncidentLocation;
   createdAt: string;
 }
