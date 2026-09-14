@@ -15,6 +15,9 @@ export type IncidentLocation = Readonly<{
   label: string;
   latitude?: number;
   longitude?: number;
+  building: string;
+  floor: string;
+  room: string;
 }>;
 
 export type PendingIncidentOperation = Readonly<{
