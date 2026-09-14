@@ -11,3 +11,8 @@ dist/
 *.p8
 *.p12
 reports/**/generated-*
+
+# macOS basura
+.DS_Store
+__MACOSX/
+**/._*
