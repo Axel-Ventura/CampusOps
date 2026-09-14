@@ -60,7 +60,6 @@
         "src/application/incidents/__tests__/getIncidents.test.ts"
       ],
       "reviews": [
-        "Verificación del typecheck de TypeScript e integración de los casos de uso y repository en memoria de incidencias con Jest"
       ],
       "prediction": "Se esperaba que la arquitectura por capas aislara los modelos de datos de incidencias y permitiera consumir las incidencias en memoria mediante casos de uso sin depender de una base de datos real.",
       "command": "npm run typecheck && npm test",
