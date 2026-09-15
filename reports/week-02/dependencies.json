@@ -1,0 +1,30 @@
+
+{
+  "schemaVersion": 1,
+  "week": 2,
+  "commitSha": "8cf3bc8649748d3e5e175fc5761ffc6eb8875253",
+  "generatedAt": "2026-09-14T22:00:00-06:00",
+  "checks": [
+    {
+      "id": "architecture_boundaries",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "make verify-week-02",
+      "evidence": "La arquitectura implementada mantiene la separación entre UI, Application, Domain e Infrastructure y la verificación de Semana 2 terminó con status pass."
+    },
+    {
+      "id": "ui_infrastructure_boundary",
+      "status": "pass",
+      "scenarioType": "boundary",
+      "command": "make public-test-week-02",
+      "evidence": "La prueba pública verificó que el diagrama contiene ui, application, domain e infrastructure y que no existe una arista directa UI → Infrastructure."
+    },
+    {
+      "id": "toolchain",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "make feedback",
+      "evidence": "Typecheck, lint, smoke test y bundle terminaron correctamente; npm audit reportó vulnerabilidades existentes pero el comando audit:ci terminó en estado pass."
+    }
+  ]
+}

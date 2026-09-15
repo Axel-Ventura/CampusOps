@@ -1,0 +1,29 @@
+
+{
+  "schemaVersion": 1,
+  "week": 2,
+  "commitSha": "8cf3bc8649748d3e5e175fc5761ffc6eb8875253",
+  "decision": "Adoptar una arquitectura por capas UI → Application → Domain ← Infrastructure para separar responsabilidades, reducir el acoplamiento de la interfaz y permitir sustituir implementaciones de infraestructura mediante contratos.",
+  "alternatives": [
+    "Arquitectura por capas con contratos entre Application, Domain e Infrastructure.",
+    "Organización por funcionalidad agrupando incidents, session, persistence y location."
+  ],
+  "tradeoff": "Se acepta una mayor cantidad de archivos y abstracciones a cambio de mejorar la testabilidad, separar responsabilidades y facilitar futuros cambios de backend, almacenamiento o proveedores externos.",
+  "requirementIds": [
+    "AC-01",
+    "AC-02",
+    "AC-04"
+  ],
+  "verification": [
+    {
+      "command": "make verify-week-02",
+      "result": "La verificación de Semana 2 terminó con status pass.",
+      "evidence": "El evaluador verificó los archivos base, perfil React Native, scripts de toolchain, integridad de workflows, escaneo de secretos y las comprobaciones de la semana."
+    },
+    {
+      "command": "make public-test-week-02",
+      "result": "La prueba pública de Semana 2 terminó con la prueba course-tests/public/week-02.test.ts en estado PASS.",
+      "evidence": "La prueba confirmó que el diagrama expone los límites UI, application, domain e infrastructure y que no existe una dependencia directa UI → Infrastructure."
+    }
+  ]
+}

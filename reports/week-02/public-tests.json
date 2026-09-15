@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "week": 2,
-  "mode": "verify",
-  "commitSha": "06db2b3b01ff29657c7c4f98bfac729f24ac8e92",
-  "evaluatedAt": "2026-09-15T03:55:35.667883+00:00",
-  "status": "pass",
+  "mode": "public",
+  "commitSha": "8cf3bc8649748d3e5e175fc5761ffc6eb8875253",
+  "evaluatedAt": "2026-09-15T04:35:47.123001+00:00",
+  "status": "fail",
   "checks": [
     {
       "id": "base_files",
@@ -32,6 +32,26 @@
       "detail": "hits=[]"
     },
     {
+      "id": "required_evidence",
+      "status": "pass",
+      "detail": "missing/empty=[]"
+    },
+    {
+      "id": "schema:reports/week-02/dependencies.json",
+      "status": "pass",
+      "detail": "3 checks indexed, 1 boundary/failure; report evaluates HEAD"
+    },
+    {
+      "id": "schema:evidence/week-02/engineering.json",
+      "status": "pass",
+      "detail": "decision evidence is substantive and reproducible; report evaluates HEAD"
+    },
+    {
+      "id": "schema:evidence/week-02/individual.json",
+      "status": "fail",
+      "detail": "Sánchez Ventura Axel Eduardo - 3523110158: commitShas must contain full lowercase Git SHAs"
+    },
+    {
       "id": "toolchain_1",
       "status": "pass",
       "detail": "npm.cmd run typecheck\n> dmi-react-native-starter@1.0.0 typecheck\n> tsc --noEmit"
@@ -49,7 +69,7 @@
     {
       "id": "toolchain_4",
       "status": "pass",
-      "detail": "npm.cmd run test:smoke\n> dmi-react-native-starter@1.0.0 test:smoke\n> jest --no-watchman --cacheDirectory .jest-cache --ci --runInBand course-tests/smoke.test.tsx\n\n\nPASS course-tests/smoke.test.tsx\n  âˆš renders the reproducible baseline and resolves backend state (122 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        1.739 s, estimated 2 s\nRan all test suites matching /course-tests\\\\smoke.test.tsx/i."
+      "detail": "npm.cmd test -- --ci --runInBand course-tests/public/week-02.test.ts\n> dmi-react-native-starter@1.0.0 test\n> jest --no-watchman --cacheDirectory .jest-cache --ci --runInBand course-tests/public/week-02.test.ts\n\n\nPASS course-tests/public/week-02.test.ts\n  âˆš architecture exposes boundaries and no direct UI-to-infrastructure edge (3 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       1 passed, 1 total\nSnapshots:   0 total\nTime:        0.914 s, estimated 1 s\nRan all test suites matching /course-tests\\\\public\\\\week-02.test.ts/i."
     }
   ]
 }
