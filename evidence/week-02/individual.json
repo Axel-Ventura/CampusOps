@@ -41,25 +41,28 @@
 
     
     {
-      "studentId": "Reyes Torres Manelic Alitzel - 3523110736",
-      "commitShas": ["4a458475814b888a90d2c7f1e65258b21b72f0a8"],
-      "files": [
-        "docs/problem-definition.md",
-        "docs/risk-register.md",
-        "evidence/week-01/engineering.json",
-        "evidence/week-01/individual.json"
-      ],
-      "tests": [
-        "make setup",
-        "make feedback",
-        "make verify-week-01"
-      ],
-      "reviews": [],
-      "prediction": "Esperaba confirmar que la toolchain en Node 22 ejecutara y validara correctamente la cohesión de la documentación y los archivos de evidencias de la semana 01.",
-      "command": "make verify-week-01",
-      "observedResult": "El comando devolvió un objeto JSON con \"status\": \"pass\" y la totalidad de las verificaciones (toolchain_1 a toolchain_4) en estado aprobado.",
-      "explanation": "La prueba fue exitosa porque se preparó previamente el entorno con 'make setup', alineando Node v22 y garantizando la validez de los esquemas requeridos por el evaluador público."
-    }
+    "studentId": "Reyes Torres Manelic Alitzel - 3523110736",
+    "commitShas": [
+      "a72b58987824050ca79ddf83cf48ea14f41ed95d"
+    ],
+    "files": [
+      "src/domain/incidents/Incident.ts",
+      "src/domain/incidents/IncidentRepository.ts",
+      "src/infrastructure/incidents/InMemoryIncidentRepository.ts",
+      "src/application/incidents/getIncidents.ts",
+      "src/application/incidents/getIncidentById.ts",
+      "evidence/week-02/individual.json"
+    ],
+    "tests": [
+      "make feedback",
+      "make verify-week-02"
+    ],
+    "reviews": [],
+    "prediction": "Esperaba confirmar que la arquitectura en 4 capas (UI, Application, Domain, Infrastructure) y la suite de pruebas validaran correctamente la gestión de incidencias en memoria para la semana 02.",
+    "command": "make verify-week-02",
+    "observedResult": "El comando devolvió un objeto JSON con \"status\": \"pass\" y la totalidad de las verificaciones (base_files, react_native_profile, secret_scan y toolchain_1 a toolchain_4) en estado aprobado.",
+    "explanation": "La verificación fue exitosa porque se implementó la estructura de carpetas requerida por el ADR-001, definiendo contratos en Domain, repositorios en Infrastructure y casos de uso en Application."
+  }
 
   ]
 }
