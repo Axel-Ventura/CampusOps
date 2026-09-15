@@ -6,7 +6,7 @@
     {
       "studentId": "Sánchez Ventura Axel Eduardo - 3523110158",
       "commitShas": [
-        "SHA_REAL_DE_TU_COMMIT"
+        "21abf0c176ce62a13d673a8ad205816d58923992"
       ],
       "files": [
         "docs/adr/ADR-001-architecture.md"
