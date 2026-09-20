@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "week": 2,
   "mode": "evidence",
-  "commitSha": "9e8f3bab4273e52b951c05082cc53fecc3562d87",
-  "evaluatedAt": "2026-09-15T04:57:42.773852+00:00",
+  "commitSha": "aee2e749a4a98b66d563aa04cbc9e79a2d465e1b",
+  "evaluatedAt": "2026-09-15T05:01:54.590683+00:00",
   "status": "pass",
   "checks": [
     {
@@ -39,12 +39,12 @@
     {
       "id": "schema:reports/week-02/dependencies.json",
       "status": "pass",
-      "detail": "3 checks indexed, 1 boundary/failure; report evaluates HEAD"
+      "detail": "3 checks indexed, 1 boundary/failure; evidence-only commit; invalid changes=[]"
     },
     {
       "id": "schema:evidence/week-02/engineering.json",
       "status": "pass",
-      "detail": "decision evidence is substantive and reproducible; report evaluates HEAD"
+      "detail": "decision evidence is substantive and reproducible; evidence-only commit; invalid changes=[]"
     },
     {
       "id": "schema:evidence/week-02/individual.json",
@@ -54,7 +54,7 @@
     {
       "id": "frozen_sha",
       "status": "pass",
-      "detail": "tag=week-02-final tagSha=9e8f3bab4273e52b951c05082cc53fecc3562d87 head=9e8f3bab4273e52b951c05082cc53fecc3562d87"
+      "detail": "tag=week-02-final tagSha=aee2e749a4a98b66d563aa04cbc9e79a2d465e1b head=aee2e749a4a98b66d563aa04cbc9e79a2d465e1b"
     }
   ]
 }

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "week": 3,
+  "teamId": "10",
+  "members": [
+
+ {
+      "studentId": "Sánchez Ventura Axel Eduardo",
+      "commitShas": [
+        "SHA_DEL_COMMIT"
+      ],
+      "files": [
+        "reports/week-03/security.json",
+        "evidence/week-03/engineering.json",
+        "evidence/week-03/individual.json"
+      ],
+      "tests": [
+        {
+          "command": "COMANDO_REAL_EJECUTADO",
+          "result": "RESULTADO_REAL"
+        }
+      ],
+      "reviews": [
+        {
+          "description": "REVISIÓN REALIZADA",
+          "evidence": "EVIDENCIA_REAL"
+        }
+      ],
+      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
+      "command": "COMANDO_PRINCIPAL_EJECUTADO",
+      "observedResult": "QUÉ OCURRIÓ REALMENTE",
+      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
+    },
+  
+
+
+    {
+      "studentId": "INTEGRANTE_2",
+      "commitShas": [
+        "SHA_DEL_COMMIT"
+      ],
+      "files": [
+        "............"
+      ],
+      "tests": [
+        {
+          "command": "COMANDO_REAL_EJECUTADO",
+          "result": "RESULTADO_REAL"
+        }
+      ],
+      "reviews": [
+        {
+          "description": "REVISIÓN REALIZADA",
+          "evidence": "EVIDENCIA_REAL"
+        }
+      ],
+      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
+      "command": "COMANDO_PRINCIPAL_EJECUTADO",
+      "observedResult": "QUÉ OCURRIÓ REALMENTE",
+      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
+    },
+
+
+    
+{
+      "studentId": "INTEGRANTE_1",
+      "commitShas": [
+        "SHA_DEL_COMMIT"
+      ],
+      "files": [
+        "............."
+      ],
+      "tests": [
+        {
+          "command": "COMANDO_REAL_EJECUTADO",
+          "result": "RESULTADO_REAL"
+        }
+      ],
+      "reviews": [
+        {
+          "description": "REVISIÓN REALIZADA",
+          "evidence": "EVIDENCIA_REAL"
+        }
+      ],
+      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
+      "command": "COMANDO_PRINCIPAL_EJECUTADO",
+      "observedResult": "QUÉ OCURRIÓ REALMENTE",
+      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
+    },
+
+    {
+      "studentId": "INTEGRANTE_3",
+      "commitShas": [
+        "SHA_DEL_COMMIT"
+      ],
+      "files": [
+        "reports/week-03/security.json",
+        "evidence/week-03/engineering.json",
+        "evidence/week-03/individual.json"
+      ],
+      "tests": [
+        {
+          "command": "COMANDO_REAL_EJECUTADO",
+          "result": "RESULTADO_REAL"
+        }
+      ],
+      "reviews": [
+        {
+          "description": "REVISIÓN REALIZADA",
+          "evidence": "EVIDENCIA_REAL"
+        }
+      ],
+      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
+      "command": "COMANDO_PRINCIPAL_EJECUTADO",
+      "observedResult": "QUÉ OCURRIÓ REALMENTE",
+      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
+    }
+  ]
+}
