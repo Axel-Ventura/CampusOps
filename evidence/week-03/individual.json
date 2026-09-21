@@ -35,29 +35,29 @@
 
 
     {
-      "studentId": "INTEGRANTE_2",
+      "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [
         "SHA_DEL_COMMIT"
       ],
       "files": [
-        "............"
+        "docs/threat-model.md"
       ],
       "tests": [
         {
-          "command": "COMANDO_REAL_EJECUTADO",
-          "result": "RESULTADO_REAL"
+          "command": "npm run test:smoke",
+          "result": "pass"
         }
       ],
       "reviews": [
         {
-          "description": "REVISIÓN REALIZADA",
-          "evidence": "EVIDENCIA_REAL"
+          "description": "Revision del modelo de amenazas inicial (Secciones 1 a 4)",
+          "evidence": "docs/threat-model.md creado con estructura de objetivos, activos, limites y amenazas T-01 a T-04"
         }
       ],
-      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
-      "command": "COMANDO_PRINCIPAL_EJECUTADO",
-      "observedResult": "QUÉ OCURRIÓ REALMENTE",
-      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
+      "prediction": "Se espera definir el objetivo, activos, limites de confianza y las cuatro amenazas principales (T-01 a T-04) de manera clara y correcta",
+      "command": "make verify-week-03",
+      "observedResult": "status: pass",
+      "explanation": "Se estructuro la primera parte de docs/threat-model.md definiendo activos, limites y las 4 amenazas principales solicitadas para el analisis inicial de seguridad"
     },
 
 
