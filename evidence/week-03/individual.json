@@ -62,58 +62,33 @@
 
 
     
-{
-      "studentId": "INTEGRANTE_1",
-      "commitShas": [
-        "SHA_DEL_COMMIT"
-      ],
-      "files": [
-        "............."
-      ],
-      "tests": [
-        {
-          "command": "COMANDO_REAL_EJECUTADO",
-          "result": "RESULTADO_REAL"
-        }
-      ],
-      "reviews": [
-        {
-          "description": "REVISIÓN REALIZADA",
-          "evidence": "EVIDENCIA_REAL"
-        }
-      ],
-      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
-      "command": "COMANDO_PRINCIPAL_EJECUTADO",
-      "observedResult": "QUÉ OCURRIÓ REALMENTE",
-      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
-    },
+
 
     {
-      "studentId": "INTEGRANTE_3",
-      "commitShas": [
-        "SHA_DEL_COMMIT"
-      ],
-      "files": [
-        "reports/week-03/security.json",
-        "evidence/week-03/engineering.json",
-        "evidence/week-03/individual.json"
-      ],
-      "tests": [
-        {
-          "command": "COMANDO_REAL_EJECUTADO",
-          "result": "RESULTADO_REAL"
-        }
-      ],
-      "reviews": [
-        {
-          "description": "REVISIÓN REALIZADA",
-          "evidence": "EVIDENCIA_REAL"
-        }
-      ],
-      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
-      "command": "COMANDO_PRINCIPAL_EJECUTADO",
-      "observedResult": "QUÉ OCURRIÓ REALMENTE",
-      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
+  "studentId": "REYES_TORRES_MANELIC_ALITZEL",
+  "commitShas": [
+    "SHA_DEL_COMMIT"
+  ],
+  "files": [
+    "docs/threat-model.md",
+    "evidence/week-03/individual.json"
+  ],
+  "tests": [
+    {
+      "command": "gitleaks detect --verbose",
+      "result": "No leaks found. Pre-commit hooks active."
     }
+  ],
+  "reviews": [
+    {
+      "description": "Verificación de mitigaciones y controles en el modelo de amenazas (Puntos 5-8)",
+      "evidence": "Validación de respuestas HTTP 403 en endpoints BOLA/RBAC y comprobación de sanitización de logs."
+    }
+  ],
+  "prediction": "Se esperaba completar las secciones 5 a 8 del modelo de amenazas (Priorización, Controles, Pruebas y Riesgo Residual) asegurando la cobertura de seguridad para CampusOps.",
+  "command": "git commit -m \"docs: completar secciones 5-8 del modelo de amenazas para CampusOps\"",
+  "observedResult": "Archivo docs/threat-model.md actualizado correctamente con la matriz de priorización, matriz de controles, pruebas de verificación realizables y evaluación de riesgo residual.",
+  "explanation": "Elaboración e integración individual de los puntos 5 al 8 en docs/threat-model.md: priorización de amenazas T-01 a T-04, definición de controles BOLA/RBAC/Sanitización, diseño de pruebas de verificación ejecutables y análisis de riesgo residual."
+}
   ]
 }
