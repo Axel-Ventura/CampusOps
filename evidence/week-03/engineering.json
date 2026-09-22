@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "week": 3,
-  "commitSha": "53a4db78318d96386e921857aec80ed3d35fdf6f",
+  "commitSha": "84f614d3ac8db1e4cbde417759220a443e3a5259",
   "decision": "Mantener el workflow de GitHub Actions de Semana 03 con permisos mínimos de lectura, ejecutar las comprobaciones obligatorias y conservar los reportes de reports/week-03 y evidence/week-03 como artifacts. La evidencia final se completa mediante archivos JSON validados por el evaluador público.",
   "alternatives": [
     "Ejecutar las comprobaciones únicamente de forma local y entregar los resultados sin un flujo automático.",

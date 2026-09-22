@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "week": 3,
   "mode": "public",
-  "commitSha": "53a4db78318d96386e921857aec80ed3d35fdf6f",
-  "evaluatedAt": "2026-09-22T01:53:50.371283+00:00",
+  "commitSha": "58fa1fb383317668593643b6f3badf1996040b7f",
+  "evaluatedAt": "2026-09-22T04:26:09.278808+00:00",
   "status": "pass",
   "checks": [
     {
@@ -39,12 +39,12 @@
     {
       "id": "schema:reports/week-03/security.json",
       "status": "pass",
-      "detail": "4 checks indexed, 2 boundary/failure; report evaluates HEAD"
+      "detail": "4 checks indexed, 2 boundary/failure; evidence-only commit; invalid changes=[]"
     },
     {
       "id": "schema:evidence/week-03/engineering.json",
       "status": "pass",
-      "detail": "decision evidence is substantive and reproducible; report evaluates HEAD"
+      "detail": "decision evidence is substantive and reproducible; evidence-only commit; invalid changes=[]"
     },
     {
       "id": "schema:evidence/week-03/individual.json",
@@ -69,7 +69,7 @@
     {
       "id": "toolchain_4",
       "status": "pass",
-      "detail": "npm.cmd test -- --ci --runInBand course-tests/public/week-03.test.ts\n> dmi-react-native-starter@1.0.0 test\n> jest --no-watchman --cacheDirectory .jest-cache --ci --runInBand course-tests/public/week-03.test.ts\n\n\nPASS course-tests/public/week-03.test.ts\n  âˆš feedback workflow preserves critical checks and least privilege (6 ms)\n  âˆš threat model links assets, threats, controls and verification (2 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       2 passed, 2 total\nSnapshots:   0 total\nTime:        1.595 s, estimated 2 s\nRan all test suites matching /course-tests\\\\public\\\\week-03.test.ts/i."
+      "detail": "npm.cmd test -- --ci --runInBand course-tests/public/week-03.test.ts\n> dmi-react-native-starter@1.0.0 test\n> jest --no-watchman --cacheDirectory .jest-cache --ci --runInBand course-tests/public/week-03.test.ts\n\n\nPASS course-tests/public/week-03.test.ts\n  âˆš feedback workflow preserves critical checks and least privilege (4 ms)\n  âˆš threat model links assets, threats, controls and verification (1 ms)\n\nTest Suites: 1 passed, 1 total\nTests:       2 passed, 2 total\nSnapshots:   0 total\nTime:        1.058 s, estimated 2 s\nRan all test suites matching /course-tests\\\\public\\\\week-03.test.ts/i."
     }
   ]
 }
