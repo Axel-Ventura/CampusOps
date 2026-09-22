@@ -4,40 +4,40 @@
   "teamId": "10",
   "members": [
 
- {
-      "studentId": "Sánchez Ventura Axel Eduardo",
-      "commitShas": [
-        "SHA_DEL_COMMIT"
-      ],
-      "files": [
-        "reports/week-03/security.json",
-        "evidence/week-03/engineering.json",
-        "evidence/week-03/individual.json"
-      ],
-      "tests": [
-        {
-          "command": "COMANDO_REAL_EJECUTADO",
-          "result": "RESULTADO_REAL"
-        }
-      ],
-      "reviews": [
-        {
-          "description": "REVISIÓN REALIZADA",
-          "evidence": "EVIDENCIA_REAL"
-        }
-      ],
-      "prediction": "QUÉ SE ESPERABA QUE OCURRIERA",
-      "command": "COMANDO_PRINCIPAL_EJECUTADO",
-      "observedResult": "QUÉ OCURRIÓ REALMENTE",
-      "explanation": "EXPLICACIÓN DE LA CONTRIBUCIÓN INDIVIDUAL"
-    },
+{
+  "studentId": "Sánchez Ventura Axel Eduardo",
+  "commitShas": [
+    "53a4db78318d96386e921857aec80ed3d35fdf6f"
+  ],
+  "files": [
+    "reports/week-03/security.json",
+    "evidence/week-03/engineering.json",
+    "evidence/week-03/individual.json"
+  ],
+  "tests": [
+    {
+      "command": "make public-test-week-03",
+      "result": "Falló inicialmente por evidencia faltante; después pasó los checks de estructura, workflow, secret scan, typecheck, lint, auditoría y tests públicos, quedando pendiente únicamente el SHA de esta evidencia individual."
+    }
+  ],
+  "reviews": [
+    {
+      "description": "Revisión e integración de la evidencia de Semana 03.",
+      "evidence": "reports/week-03/security.json y evidence/week-03/engineering.json fueron validados por el evaluador público."
+    }
+  ],
+  "prediction": "Se esperaba que el evaluador validara la evidencia de Semana 03 y comprobara los controles del workflow, el modelo de amenazas y los checks técnicos.",
+  "command": "make public-test-week-03",
+  "observedResult": "El evaluador validó correctamente la evidencia de seguridad e ingeniería y los checks técnicos; el único fallo restante corresponde al commitSha pendiente de completar en individual.json.",
+  "explanation": "Integré y verifiqué la evidencia de Semana 03, registrando los resultados de las comprobaciones del evaluador y documentando el fallo inicial relacionado con la evidencia antes de corregir los archivos requeridos."
+},
   
 
 
     {
       "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [
-        "SHA_DEL_COMMIT"
+        "aec5e4d86e20c1fa7df3ba959a1adee65b935ed6"
       ],
       "files": [
         "docs/threat-model.md"
@@ -67,7 +67,7 @@
     {
   "studentId": "REYES_TORRES_MANELIC_ALITZEL",
   "commitShas": [
-    "SHA_DEL_COMMIT"
+    "f2cc43ea64a92fe3aa858467eb670e401e466c47"
   ],
   "files": [
     "docs/threat-model.md",

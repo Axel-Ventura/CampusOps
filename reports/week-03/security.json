@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "week": 3,
+  "commitSha": "53a4db78318d96386e921857aec80ed3d35fdf6f",
+  "generatedAt": "2026-09-22T01:38:34Z",
+  "checks": [
+    {
+      "id": "verify-week-03",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "make verify-week-03",
+      "evidence": "El evaluador de Semana 03 terminó con status pass; base_files, react_native_profile, toolchain_scripts, workflow_integrity, secret_scan y los cuatro checks de toolchain pasaron."
+    },
+    {
+      "id": "public-tests-week-03",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "make public-test-week-03",
+      "evidence": "Los tests públicos course-tests/public/week-03.test.ts pasaron: el workflow conserva los checks críticos y least privilege, y el threat model relaciona activos, amenazas, controles y verificación."
+    },
+    {
+      "id": "required-evidence-before-completion",
+      "status": "fail",
+      "scenarioType": "failure",
+      "command": "make public-test-week-03",
+      "evidence": "La ejecución inicial falló porque faltaban reports/week-03/security.json y evidence/week-03/engineering.json. La misma ejecución también detectó que el commitSha de la evidencia individual de Sánchez Ventura Axel Eduardo aún no era un SHA Git completo."
+    },
+    {
+      "id": "secret-scan",
+      "status": "pass",
+      "scenarioType": "boundary",
+      "command": "make verify-week-03",
+      "evidence": "El check secret_scan terminó con status pass y detail hits=[]; no se detectaron secretos según el escáner del evaluador."
+    }
+  ]
+}

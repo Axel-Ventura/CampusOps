@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "week": 3,
+  "commitSha": "53a4db78318d96386e921857aec80ed3d35fdf6f",
+  "decision": "Mantener el workflow de GitHub Actions de Semana 03 con permisos mínimos de lectura, ejecutar las comprobaciones obligatorias y conservar los reportes de reports/week-03 y evidence/week-03 como artifacts. La evidencia final se completa mediante archivos JSON validados por el evaluador público.",
+  "alternatives": [
+    "Ejecutar las comprobaciones únicamente de forma local y entregar los resultados sin un flujo automático.",
+    "Ejecutar las comprobaciones mediante GitHub Actions y conservar los resultados como artifacts para facilitar su revisión y reproducción."
+  ],
+  "tradeoff": "La integración mediante GitHub Actions añade tiempo de ejecución y dependencia del entorno del runner, pero proporciona una comprobación reproducible y visible para el equipo y conserva los resultados de la evaluación. Mantener permisos contents: read reduce la capacidad del workflow frente a una configuración con permisos de escritura.",
+  "requirementIds": [
+    "AC-01",
+    "AC-02",
+    "AC-03",
+    "AC-04",
+    "AC-05"
+  ],
+  "verification": [
+    {
+      "command": "make verify-week-03",
+      "result": "pass",
+      "evidence": "El evaluador terminó con status pass. Pasaron workflow_integrity, secret_scan, typecheck, lint, audit:ci y smoke test."
+    },
+    {
+      "command": "make public-test-week-03",
+      "result": "pass",
+      "evidence": "Los dos tests públicos de Semana 03 pasaron: preservación de checks críticos y least privilege, y relación entre activos, amenazas, controles y verificación."
+    },
+    {
+      "command": "make public-test-week-03",
+      "result": "fail",
+      "evidence": "La ejecución inicial produjo un fallo reproducible porque todavía no existían security.json y engineering.json, además de detectar el SHA incompleto del registro individual. Esta evidencia será corregida mediante la creación de los archivos de evidencia y la actualización final del SHA."
+    }
+  ]
+}
