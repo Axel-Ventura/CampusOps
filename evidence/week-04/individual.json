@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "week": 4,
+  "teamId": "10",
+  "members": [
+    {
+      "studentId": "Sánchez Ventura Axel Eduardo",
+      "commitShas": [
+        "S...."
+      ],
+      "files": [
+        "ARCHIVO_TECNICO_MODIFICADO"
+      ],
+      "tests": [
+        "PRUEBA_REAL_EJECUTADA"
+      ],
+      "reviews": [
+        "REVISION_O_VERIFICACION_REALIZADA"
+      ],
+      "prediction": "QUE SE ESPERABA QUE OCURRIERA",
+      "command": "COMANDO_REAL_EJECUTADO",
+      "observedResult": "RESULTADO_REAL_OBSERVADO",
+      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
+    },
+
+
+
+
+
+    {
+      "studentId": "ID_2",
+      "commitShas": [
+        "......."
+      ],
+      "files": [
+        "......"
+      ],
+      "tests": [
+        "PRUEBA_REAL_EJECUTADA"
+      ],
+      "reviews": [
+        "REVISION_O_VERIFICACION_REALIZADA"
+      ],
+      "prediction": "QUE_SE_ESPERABA_QUE_OCURRIERA",
+      "command": "COMANDO_REAL_EJECUTADO",
+      "observedResult": "RESULTADO_REAL_OBSERVADO",
+      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
+    },
+
+
+
+
+
+    {
+      "studentId": "ID_3",
+      "commitShas": [
+        "............"
+      ],
+      "files": [
+        "........."
+      ],
+      "tests": [
+        "PRUEBA_REAL_EJECUTADA"
+      ],
+      "reviews": [
+        "REVISION_O_VERIFICACION_REALIZADA"
+      ],
+      "prediction": "QUE_SE_ESPERABA_QUE_OCURRIERA",
+      "command": "COMANDO_REAL_EJECUTADO",
+      "observedResult": "RESULTADO_REAL_OBSERVADO",
+      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
+    }
+  ]
+}
