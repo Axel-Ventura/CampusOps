@@ -1,4 +1,30 @@
 {
+ feature/week-04-negative-tests
+  "studentId": "REYES_TORRES_MANELIC_ALITZEL",
+  "commitShas": [
+    "SHA_DEL_COMMIT"
+  ],
+  "files": [
+    "reports/week-04/negative-tests.json",
+    "evidence/week-04/individual.json"
+  ],
+  "tests": [
+    {
+      "command": "npm test",
+      "result": "pass"
+    }
+  ],
+  "reviews": [
+    {
+      "description": "Verificación de sanitización y prevención de fugas de información sensible",
+      "evidence": "Validación de redactForTelemetry en flujo UI -> Lógica Interna -> Logs/Preferencias/Reportes"
+    }
+  ],
+  "prediction": "Se espera validar que ningún dato sensible o PII sea expuesto en logs, preferencias o reportes tras procesarse en la lógica interna, cubriendo casos normales, objetos anidados, listas y caminos de error.",
+  "command": "git commit -m \"feat(week-04): add negative tests report for sensitivity sanitization\"",
+  "observedResult": "Pruebas negativas registradas exitosamente en reports/week-04/negative-tests.json confirmando la redacción de datos sensibles en todos los escenarios solicitados.",
+  "explanation": "Creación y validación del reporte de pruebas negativas (MART) para asegurar que la información sensible no sea expuesta en los outputs de telemetría, logs o reportes, cubriendo los 4 escenarios obligatorios con base en las especificaciones del proyecto."
+
   "schemaVersion": 1,
   "week": 4,
   "teamId": "10",
@@ -71,4 +97,5 @@
       "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
     }
   ]
+ main
 }
