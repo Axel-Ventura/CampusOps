@@ -54,23 +54,23 @@
 
 
     {
-      "studentId": "ID_2",
+      "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [
         "......."
       ],
       "files": [
-        "......"
+        "reports/week-04/secret-scan.json"
       ],
       "tests": [
-        "PRUEBA_REAL_EJECUTADA"
+        ""
       ],
       "reviews": [
-        "REVISION_O_VERIFICACION_REALIZADA"
+        "Búsqueda de secretos con los patrones oficiales de tools/course_public_evaluator.py (private_key, github_token, aws_access_key, public_secret_name) y una búsqueda manual más amplia (token, password, api-key, bearer) para clasificar cada coincidencia como secreto real, falso positivo o dato ficticio permitido"
       ],
-      "prediction": "QUE_SE_ESPERABA_QUE_OCURRIERA",
-      "command": "COMANDO_REAL_EJECUTADO",
-      "observedResult": "RESULTADO_REAL_OBSERVADO",
-      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
+      "prediction": "Esperaba que la búsqueda con los patrones oficiales no encontrara ningún secreto real, ya que el proyecto usa un backend de práctica con valores fijos documentados como fixtures públicos en docs/CAMPUSOPS_API.md, y que la búsqueda manual sí mostrara varias coincidencias de la palabra \"token\" que habría que clasificar como falso positivo o dato ficticio",
+      "command": "git grep -n -I -E -e \"-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|\\bgh[pousr]_[A-Za-z0-9]{20,}\\b|\\bAKIA[0-9A-Z]{16}\\b|EXPO_PUBLIC_[A-Z0-9_]*(SECRET|PRIVATE_KEY|ACCESS_TOKEN)\\s*=\" -- . \":(exclude)package-lock.json\"",
+      "observedResult": "El comando con los patrones oficiales no mostró ninguna coincidencia (0 secretos reales). La búsqueda manual de token/password/api-key/bearer mostró 35 coincidencias, todas clasificadas como dato ficticio permitido (course-valid-token y similares en course-backend/) o falso positivo (texto de documentación, nombres de campos en TypeScript, o los propios patrones del evaluador)",
+      "explanation": "Creé reports/week-04/secret-scan.json ejecutando dos búsquedas reproducibles con git grep: la primera con los mismos patrones que usa el evaluador oficial del curso, y la segunda más amplia para revisar manualmente cada coincidencia y clasificarla. No se encontró ningún secreto real escrito en el código, configuración, scripts, fixtures, reportes ni documentación del proyecto"
     },
 
 
@@ -97,5 +97,4 @@
       "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
     }
   ]
- main
 }
