@@ -8,7 +8,7 @@
 {
   "studentId": "Sánchez Ventura Axel Eduardo",
   "commitShas": [
-    ""
+    "19c1a449c368cbefa1b7c92b0b01053c9e7c76a5"
   ],
   "files": [
     "src/course-evaluation/index.ts",
@@ -28,7 +28,7 @@
   "command": "make verify-week-04",
   "observedResult": "pass: base_files, react_native_profile, toolchain_scripts, workflow_integrity, secret_scan, typecheck, lint, audit:ci y smoke test pasaron correctamente; secret_scan reportó hits=[].",
   "explanation": "Implementé redactForTelemetry para sanitizar de forma recursiva objetos y listas, ocultando campos sensibles y conservando contexto técnico para telemetría. También documenté los controles de seguridad y privacidad de la Semana 04."
-}
+},
 
 
 
