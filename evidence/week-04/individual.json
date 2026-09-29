@@ -1,34 +1,10 @@
 {
- feature/week-04-negative-tests
-  "studentId": "REYES_TORRES_MANELIC_ALITZEL",
-  "commitShas": [
-    "SHA_DEL_COMMIT"
-  ],
-  "files": [
-    "reports/week-04/negative-tests.json",
-    "evidence/week-04/individual.json"
-  ],
-  "tests": [
-    {
-      "command": "npm test",
-      "result": "pass"
-    }
-  ],
-  "reviews": [
-    {
-      "description": "Verificación de sanitización y prevención de fugas de información sensible",
-      "evidence": "Validación de redactForTelemetry en flujo UI -> Lógica Interna -> Logs/Preferencias/Reportes"
-    }
-  ],
-  "prediction": "Se espera validar que ningún dato sensible o PII sea expuesto en logs, preferencias o reportes tras procesarse en la lógica interna, cubriendo casos normales, objetos anidados, listas y caminos de error.",
-  "command": "git commit -m \"feat(week-04): add negative tests report for sensitivity sanitization\"",
-  "observedResult": "Pruebas negativas registradas exitosamente en reports/week-04/negative-tests.json confirmando la redacción de datos sensibles en todos los escenarios solicitados.",
-  "explanation": "Creación y validación del reporte de pruebas negativas (MART) para asegurar que la información sensible no sea expuesta en los outputs de telemetría, logs o reportes, cubriendo los 4 escenarios obligatorios con base en las especificaciones del proyecto."
-
   "schemaVersion": 1,
   "week": 4,
   "teamId": "10",
   "members": [
+
+    
     {
       "studentId": "Sánchez Ventura Axel Eduardo",
       "commitShas": [
@@ -54,23 +30,23 @@
 
 
     {
-      "studentId": "Paniagua González Concepción Guadalupe",
+      "studentId": "ID_2",
       "commitShas": [
         "......."
       ],
       "files": [
-        "reports/week-04/secret-scan.json"
+        "......"
       ],
       "tests": [
-        ""
+        "PRUEBA_REAL_EJECUTADA"
       ],
       "reviews": [
-        "Búsqueda de secretos con los patrones oficiales de tools/course_public_evaluator.py (private_key, github_token, aws_access_key, public_secret_name) y una búsqueda manual más amplia (token, password, api-key, bearer) para clasificar cada coincidencia como secreto real, falso positivo o dato ficticio permitido"
+        "REVISION_O_VERIFICACION_REALIZADA"
       ],
-      "prediction": "Esperaba que la búsqueda con los patrones oficiales no encontrara ningún secreto real, ya que el proyecto usa un backend de práctica con valores fijos documentados como fixtures públicos en docs/CAMPUSOPS_API.md, y que la búsqueda manual sí mostrara varias coincidencias de la palabra \"token\" que habría que clasificar como falso positivo o dato ficticio",
-      "command": "git grep -n -I -E -e \"-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|\\bgh[pousr]_[A-Za-z0-9]{20,}\\b|\\bAKIA[0-9A-Z]{16}\\b|EXPO_PUBLIC_[A-Z0-9_]*(SECRET|PRIVATE_KEY|ACCESS_TOKEN)\\s*=\" -- . \":(exclude)package-lock.json\"",
-      "observedResult": "El comando con los patrones oficiales no mostró ninguna coincidencia (0 secretos reales). La búsqueda manual de token/password/api-key/bearer mostró 35 coincidencias, todas clasificadas como dato ficticio permitido (course-valid-token y similares en course-backend/) o falso positivo (texto de documentación, nombres de campos en TypeScript, o los propios patrones del evaluador)",
-      "explanation": "Creé reports/week-04/secret-scan.json ejecutando dos búsquedas reproducibles con git grep: la primera con los mismos patrones que usa el evaluador oficial del curso, y la segunda más amplia para revisar manualmente cada coincidencia y clasificarla. No se encontró ningún secreto real escrito en el código, configuración, scripts, fixtures, reportes ni documentación del proyecto"
+      "prediction": "QUE_SE_ESPERABA_QUE_OCURRIERA",
+      "command": "COMANDO_REAL_EJECUTADO",
+      "observedResult": "RESULTADO_REAL_OBSERVADO",
+      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
     },
 
 
