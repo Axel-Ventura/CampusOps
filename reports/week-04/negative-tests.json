@@ -1,0 +1,63 @@
+{
+  "suite": "MART Negative Tests - Data Leak Prevention",
+  "references": [
+    "ACTIVITY_STUDENT_FACING.md",
+    "RUBRIC_PUBLIC.md",
+    "docs/CAMPUSOPS_API.md",
+    "redactForTelemetry"
+  ],
+  "tests": [
+    {
+      "id": "NEG-01",
+      "name": "Caso normal",
+      "description": "Se ingresa un dato sensible ficticio desde la UI y se verifica que no aparezca expuesto en logs, preferencias ni reportes.",
+      "flow": "UI -> Dato Sensible -> Lógica Interna -> redactForTelemetry -> Logs/Preferencias/Reportes",
+      "input": {
+        "userId": "usr_test_001",
+        "secretToken": "sk_test_998877"
+      },
+      "passed": true,
+      "details": "El dato sensible fue redactado correctamente antes de llegar a la capa de persistencia/logs."
+    },
+    {
+      "id": "NEG-02",
+      "name": "Objeto anidado",
+      "description": "Comprueba que la sanitización mediante redactForTelemetry alcanza niveles internos del objeto.",
+      "input": {
+        "payload": {
+          "user": {
+            "auth": {
+              "password": "SuperSecretPassword123!"
+            }
+          }
+        }
+      },
+      "passed": true,
+      "details": "Los campos sensibles profundos dentro de objetos anidados fueron identificados y redactados."
+    },
+    {
+      "id": "NEG-03",
+      "name": "Lista",
+      "description": "Comprueba que cada elemento de una lista o arreglo se procesa y sanitiza individualmente.",
+      "input": {
+        "tokens": [
+          "token_alpha_123",
+          "token_beta_456",
+          "token_gamma_789"
+        ]
+      },
+      "passed": true,
+      "details": "Todos los elementos de la lista fueron procesados sin omitir ningún ítem."
+    },
+    {
+      "id": "NEG-04",
+      "name": "Camino de error",
+      "description": "Provoca un error controlado con datos ficticios para validar que las excepciones no filtren información sensible en el stacktrace o mensaje de error.",
+      "input": {
+        "rawAuth": "invalid_bearer_token_xyz"
+      },
+      "passed": true,
+      "details": "El error fue capturado y sanitizado; no expone credenciales ni datos personales en los reportes de error."
+    }
+  ]
+}
