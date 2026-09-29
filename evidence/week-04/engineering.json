@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "week": 4,
-  "commitSha": "19c1a449c368cbefa1b7c92b0b01053c9e7c76a5",
+  "commitSha": "e3b07f09ae52cd13a778b03edbfb7166b9886b87",
   "decision": "Aplicar controles de seguridad y privacidad centrados en evitar la exposición de información sensible. Para telemetría se implementó redactForTelemetry, que recorre objetos y listas de forma recursiva, reemplaza campos sensibles por [REDACTED] y conserva contexto técnico no sensible para diagnóstico. Los controles se verificaron utilizando únicamente datos ficticios.",
   "alternatives": [
     "Registrar directamente las estructuras de datos y conservar sus valores originales para facilitar el diagnóstico.",
