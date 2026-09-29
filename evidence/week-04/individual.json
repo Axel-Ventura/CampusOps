@@ -36,7 +36,7 @@
         "reports/week-04/secret-scan.json"
       ],
       "tests": [
-        "PRUEBA_REAL_EJECUTADA"
+        ""
       ],
       "reviews": [
         "Búsqueda de secretos con los patrones oficiales de tools/course_public_evaluator.py (private_key, github_token, aws_access_key, public_secret_name) y una búsqueda manual más amplia (token, password, api-key, bearer) para clasificar cada coincidencia como secreto real, falso positivo o dato ficticio permitido"
