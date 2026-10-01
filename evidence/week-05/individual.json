@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "week": 5,
+  "teamId": "10",
+  "members": [
+
+    
+{
+  "studentId": "Sánchez Ventura Axel Eduardo",
+  "commitShas": [
+    ""
+  ],
+  "files": [
+    "docs/api-contract.md",
+    "evidence/week-05/individual.json"
+  ],
+
+  "tests": [
+".........."
+  ],
+  "reviews": [
+    "Revisión del contrato de API definido en docs/CAMPUSOPS_API.md",
+    "Revisión del contrato de parseRemoteResource y de los casos publicados en course-tests/public/week-05.ts"
+  ],
+  "prediction": "Se esperaba que el contrato documentara correctamente la estructura { id, version, status, payload }, que distinguiera payload null como un valor válido y que reflejara los casos válidos e inválidos definidos para parseRemoteResource.",
+
+  "command": "make verify-week-05",
+
+  "observedResult": "....",
+  
+  "explanation": "Documenté el contrato de API de la Semana 5 a partir de CAMPUSOPS_API.md, course-backend/README.md, contracts.ts y el evaluador público de Week 5. La documentación establece las reglas de validación del sobre remoto, la separación entre DTO y datos de aplicación y los escenarios principales de respuesta del backend."
+},
+
+
+
+
+
+    {
+      "studentId": ".....",
+      "commitShas": [
+        "........."
+      ],
+      "files": [
+        "................"
+      ],
+      "tests": [
+        ".........."
+      ],
+
+      "reviews": [
+           ".................."
+    
+        ],
+      "prediction": "",
+      "command": "",
+      "observedResult": "",
+      "explanation": ""
+    },
+
+
+
+
+
+    {
+      "studentId": ".....",
+      "commitShas": [
+        "........."
+      ],
+      "files": [
+        "................"
+      ],
+      "tests": [
+        ".........."
+      ],
+
+      "reviews": [
+           ".................."
+    
+        ],
+      "prediction": "",
+      "command": "",
+      "observedResult": "",
+      "explanation": ""
+    }
+
+    
+  ]
+}
