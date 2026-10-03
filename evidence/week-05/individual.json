@@ -36,25 +36,25 @@
 
 
     {
-      "studentId": ".....",
+      "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [
         "........."
       ],
       "files": [
-        "................"
+        "src/course-evaluation/index.ts",
+        "reports/week-05/contract-tests.json"
       ],
       "tests": [
-        ".........."
+        "npm test -- --runInBand course-tests/public/week-05.test.ts",
+        "npm run backend:self-test",
+        "npm run typecheck",
+        "npm run lint"
       ],
-
-      "reviews": [
-           ".................."
-    
-        ],
-      "prediction": "",
-      "command": "",
-      "observedResult": "",
-      "explanation": ""
+      "reviews": [],
+      "prediction": "Esperaba que al implementar parseRemoteResource validando id no vacio, version como numero entero no negativo, status no vacio y payload como objeto o null, los 5 casos de course-tests/public/week-05.test.ts pasaran, distinguiendo una respuesta valida de una rechazada por contrato",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "observedResult": "Los 5 casos de la prueba publica pasaron (Tests: 5 passed, 5 total): respuesta valida con payload, respuesta valida con payload null, id vacio rechazado, version como texto rechazada e input null rechazado. Tambien pasaron npm run backend:self-test, npm run typecheck y npm run lint",
+      "explanation": "Mi tarea asignada era crear reports/week-05/contract-tests.json, pero al revisar el proyecto encontre que parseRemoteResource en src/course-evaluation/index.ts seguia sin implementarse (no se le habia asignado a nadie), lo que bloqueaba mi reporte. Avise al equipo y despues se acordo que yo lo haria, entonces implemente la funcion validando cada campo del contrato segun docs/CAMPUSOPS_API.md y src/course-evaluation/contracts.ts. Despues cree contract-tests.json documentando los 4 casos de mi asignacion (respuesta valida, payload null valido, respuesta rechazada por contrato y rechazo por version con tipo incorrecto) mas el caso de input null, con el comando y resultado real de cada uno"
     },
 
 
