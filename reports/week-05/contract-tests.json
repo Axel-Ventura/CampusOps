@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "week": 5,
+  "commitSha": "0ee06767de94c8aea52f5f74568c210a52b13be7",
+  "generatedAt": "2026-09-30T02:02:00Z",
+  "checks": [
+    {
+      "id": "contract-valid-response-accepted",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "Caso: respuesta valida { id: 'campus-inc-001', version: 2, status: 'assigned', payload: { category: 'connectivity', description: 'Falla ficticia' } }. Esperado: parseRemoteResource acepta el recurso (ok: true). Observado: el test 'CampusOps validates the published incident DTO boundary 0' paso, parseRemoteResource devolvio ok: true con el value correspondiente."
+    },
+    {
+      "id": "contract-null-payload-accepted",
+      "status": "pass",
+      "scenarioType": "boundary",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "Caso: respuesta { id: 'r-2', version: 3, status: 'closed', payload: null, ignored: 'forward-compatible' }. Esperado: sigue siendo valida (ok: true) aunque payload sea null, sin inventar datos ni tratar el null como formato invalido. Observado: el test 'CampusOps validates the published incident DTO boundary 1' paso, parseRemoteResource devolvio ok: true, payload: null, e ignoro el campo extra 'ignored'."
+    },
+    {
+      "id": "contract-empty-id-rejected",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "Caso: respuesta con id vacio { id: '', version: 1, status: 'open', payload: null }. Esperado: rechazada (ok: false) porque el id no cumple el contrato. Observado: el test 'CampusOps validates the published incident DTO boundary 2' paso, parseRemoteResource devolvio ok: false con error: 'contract'."
+    },
+    {
+      "id": "contract-version-wrong-type-rejected",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "Caso: respuesta con version como texto { id: 'r-3', version: '3', status: 'open', payload: null }. Esperado: rechazada (ok: false) porque version debe ser un numero entero no negativo, distinguiendo el dato crudo recibido del servidor del tipo que usa la aplicacion. Observado: el test 'CampusOps validates the published incident DTO boundary 3' paso, parseRemoteResource devolvio ok: false con error: 'contract' al detectar que version no era de tipo number."
+    },
+    {
+      "id": "contract-null-input-rejected",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "Caso: input completo null. Esperado: rechazada (ok: false) sin lanzar excepcion. Observado: el test 'CampusOps validates the published incident DTO boundary 4' paso, parseRemoteResource devolvio ok: false con error: 'contract'."
+    },
+    {
+      "id": "backend-self-test",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm run backend:self-test",
+      "evidence": "Salida: 'CampusOps backend contracts: roles, reassignment conflict, lost response, idempotency, evidence and geocoding PASS. Controlled backend self-test passed.'"
+    },
+    {
+      "id": "typecheck",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm run typecheck",
+      "evidence": "tsc --noEmit finalizo sin errores."
+    },
+    {
+      "id": "lint",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm run lint",
+      "evidence": "eslint . finalizo sin errores."
+    }
+  ]
+}
