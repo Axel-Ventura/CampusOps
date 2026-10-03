@@ -38,7 +38,7 @@
     {
       "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [
-        "........."
+        "6cc8e786286e2de84eb3f4851979d6bdd49ec3ce"
       ],
       "files": [
         "src/course-evaluation/index.ts",
