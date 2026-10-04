@@ -1,0 +1,67 @@
+{
+  "scenarios": [
+    {
+      "case": "success",
+      "condition": "El servidor responde HTTP 200 con un sobre válido { id, version, status, payload } que cumple el contrato.",
+      "expectedResult": "parseRemoteResource devuelve { ok: true, value: ... }.",
+      "observedResult": "Respuesta parseada exitosamente con ok: true.",
+      "clientBehavior": "Procesa los datos correctamente y los entrega al dominio de la aplicación."
+    },
+    {
+      "case": "nullable",
+      "condition": "El servidor responde HTTP 200 con payload: null en un sobre válido.",
+      "expectedResult": "parseRemoteResource valida ok: true admitiendo payload nulo.",
+      "observedResult": "Se acepta el sobre como válido sin lanzar excepciones.",
+      "clientBehavior": "Acepta la respuesta y gestiona de forma segura la ausencia de payload sin inventar datos."
+    },
+    {
+      "case": "malformed",
+      "condition": "El servidor entrega un JSON que viola el contrato (id vacío, versión string en lugar de entero, status ausente o estructura corrupta).",
+      "expectedResult": "parseRemoteResource detecta el fallo de contrato y devuelve { ok: false, error: 'contract' }.",
+      "observedResult": "Incapacidad de parseo de contrato capturada con ok: false.",
+      "clientBehavior": "Diferencia este error de un fallo HTTP 500/red y rechaza el payload para evitar procesar datos corruptos."
+    },
+    {
+      "case": "server_error",
+      "condition": "El backend responde con código de estado HTTP 500.",
+      "expectedResult": "El cliente HTTP captura la respuesta con código 500 y reporta un error de servidor.",
+      "observedResult": "Capturado como excepción o error HTTP 500 explícito.",
+      "clientBehavior": "Diferencia este fallo de un error de contrato (payload malformado) e informa la indisponibilidad del backend."
+    },
+    {
+      "case": "rate_limited",
+      "condition": "El backend responde con código de estado HTTP 429 y cabecera Retry-After.",
+      "expectedResult": "El cliente identifica la limitación de tasa de solicitudes.",
+      "observedResult": "Código 429 capturado correctamente por la capa HTTP.",
+      "clientBehavior": "Registra el bloqueo por límite de tasa y respeta el tiempo indicado antes de reintentar."
+    },
+    {
+      "case": "slow",
+      "condition": "El servidor retarda la respuesta más allá del umbral de tiempo límite configurado.",
+      "expectedResult": "El cliente interrumpe la conexión por timeout.",
+      "observedResult": "Solicitud cancelada por el cliente antes de recibir respuesta.",
+      "clientBehavior": "Aborta la petición pendiente para evitar bloquear la aplicación."
+    },
+    {
+      "case": "invalid_coordinates",
+      "condition": "Petición de geocodificación con parámetros fuera de rango o coordenadas inválidas.",
+      "expectedResult": "Respuesta de error de validación de coordenadas capturada.",
+      "observedResult": "Error de validación reportado por el backend.",
+      "clientBehavior": "Notifica que las coordenadas no son válidas y permite la selección o captura manual."
+    },
+    {
+      "case": "incomplete",
+      "condition": "El servidor interrumpe la transmisión del cuerpo de la respuesta o envía un JSON truncado.",
+      "expectedResult": "Fallo en la deserialización JSON o en la comprobación del sobre.",
+      "observedResult": "SyntaxError de JSON o error de contrato en parseRemoteResource.",
+      "clientBehavior": "Trata el payload como incompleto/corrupto y aborta el procesamiento."
+    },
+    {
+      "case": "timeout_after_commit",
+      "condition": "El backend guarda/persiste la operación (commit), pero la respuesta tarda en llegar y el cliente hace timeout.",
+      "expectedResult": "El cliente experimenta un timeout en la respuesta, dejando en incertidumbre si la acción se ejecutó.",
+      "observedResult": "Timeout registrado en el cliente mientras la operación fue guardada exitosamente en el backend.",
+      "clientBehavior": "Al reintentar la operación, utiliza la misma Idempotency-Key estable para garantizar que el backend reconozca la petición y no duplique el historial."
+    }
+  ]
+}
