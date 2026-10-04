@@ -1,52 +1,58 @@
 {
- feature/week-04-negative-tests
-  "studentId": "REYES_TORRES_MANELIC_ALITZEL",
-  "commitShas": [
-    "SHA_DEL_COMMIT"
-  ],
-  "files": [
-    "reports/week-04/negative-tests.json",
-    "evidence/week-04/individual.json"
-  ],
-  "tests": [
-    {
-      "command": "npm test",
-      "result": "pass"
-    }
-  ],
-  "reviews": [
-    {
-      "description": "Verificación de sanitización y prevención de fugas de información sensible",
-      "evidence": "Validación de redactForTelemetry en flujo UI -> Lógica Interna -> Logs/Preferencias/Reportes"
-    }
-  ],
-  "prediction": "Se espera validar que ningún dato sensible o PII sea expuesto en logs, preferencias o reportes tras procesarse en la lógica interna, cubriendo casos normales, objetos anidados, listas y caminos de error.",
-  "command": "git commit -m \"feat(week-04): add negative tests report for sensitivity sanitization\"",
-  "observedResult": "Pruebas negativas registradas exitosamente en reports/week-04/negative-tests.json confirmando la redacción de datos sensibles en todos los escenarios solicitados.",
-  "explanation": "Creación y validación del reporte de pruebas negativas (MART) para asegurar que la información sensible no sea expuesta en los outputs de telemetría, logs o reportes, cubriendo los 4 escenarios obligatorios con base en las especificaciones del proyecto."
-
   "schemaVersion": 1,
   "week": 4,
   "teamId": "10",
   "members": [
+
+    
+{
+  "studentId": "Sánchez Ventura Axel Eduardo",
+  "commitShas": [
+    "64fa3732e41a7f4c79c59b599d82782a505f8760"
+  ],
+  "files": [
+    "src/course-evaluation/index.ts",
+    "docs/security-controls.md",
+    "evidence/week-04/engineering.json"
+  ],
+  "tests": [
+    "npm test -- --runInBand course-tests/public/week-04.test.ts",
+    "npx tsx -e \"import { redactForTelemetry } from './src/course-evaluation/index.ts'; ...\"",
+    "make verify-week-04"
+  ],
+  "reviews": [
+    "Revisión manual de la sanitización recursiva y verificación de que la entrada original no es modificada",
+    "Revisión del contrato de redactForTelemetry definido en docs/CAMPUSOPS_API.md"
+  ],
+  "prediction": "Se esperaba que los campos sensibles fueran reemplazados por [REDACTED], que los campos técnicos permanecieran disponibles y que la función no modificara la estructura original.",
+  "command": "make verify-week-04",
+  "observedResult": "pass: base_files, react_native_profile, toolchain_scripts, workflow_integrity, secret_scan, typecheck, lint, audit:ci y smoke test pasaron correctamente; secret_scan reportó hits=[].",
+  "explanation": "Implementé redactForTelemetry para sanitizar de forma recursiva objetos y listas, ocultando campos sensibles y conservando contexto técnico para telemetría. También documenté los controles de seguridad y privacidad de la Semana 04."
+},
+
+
+
+
+
     {
-      "studentId": "Sánchez Ventura Axel Eduardo",
+      "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [
-        "S...."
+        "c76a854ef53a81e8fb8c30d8682157a0b46bd339"
       ],
       "files": [
-        "ARCHIVO_TECNICO_MODIFICADO"
+        "reports/week-04/secret-scan.json"
       ],
       "tests": [
-        "PRUEBA_REAL_EJECUTADA"
+        "npm test"
       ],
+
       "reviews": [
-        "REVISION_O_VERIFICACION_REALIZADA"
-      ],
-      "prediction": "QUE SE ESPERABA QUE OCURRIERA",
-      "command": "COMANDO_REAL_EJECUTADO",
-      "observedResult": "RESULTADO_REAL_OBSERVADO",
-      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
+  "Revisión de las coincidencias encontradas por el escaneo oficial de secretos y clasificación manual de falsos positivos y fixtures ficticios."
+],
+           "prediction": "Esperaba que la búsqueda con los patrones oficiales no encontrara ningún secreto real, ya que el proyecto usa un backend de práctica con valores fijos documentados como fixtures públicos en docs/CAMPUSOPS_API.md, y que la búsqueda manual sí mostrara varias coincidencias de la palabra \"token\" que habría que clasificar como falso positivo o dato ficticio",
+      "command": "git grep -n -I -E -e \"-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|\\bgh[pousr]_[A-Za-z0-9]{20,}\\b|\\bAKIA[0-9A-Z]{16}\\b|EXPO_PUBLIC_[A-Z0-9_]*(SECRET|PRIVATE_KEY|ACCESS_TOKEN)\\s*=\" -- . \":(exclude)package-lock.json\"",
+      "observedResult": "El comando con los patrones oficiales no mostró ninguna coincidencia (0 secretos reales). La búsqueda manual de token/password/api-key/bearer mostró 35 coincidencias, todas clasificadas como dato ficticio permitido (course-valid-token y similares en course-backend/) o falso positivo (texto de documentación, nombres de campos en TypeScript, o los propios patrones del evaluador)",
+      "explanation": "Creé reports/week-04/secret-scan.json ejecutando dos búsquedas reproducibles con git grep: la primera con los mismos patrones que usa el evaluador oficial del curso, y la segunda más amplia para revisar manualmente cada coincidencia y clasificarla. No se encontró ningún secreto real escrito en el código, configuración, scripts, fixtures, reportes ni documentación del proyecto"
     },
 
 
@@ -54,48 +60,30 @@
 
 
     {
-      "studentId": "ID_2",
+      "studentId": "REYES_TORRES_MANELIC_ALITZEL",
+
       "commitShas": [
-        "......."
+        "35f7939acd2bcc8282009a6800318b16615b0cae"
       ],
+
       "files": [
-        "......"
+         "reports/week-04/negative-tests.json",
+    "evidence/week-04/individual.json"
       ],
+
       "tests": [
-        "PRUEBA_REAL_EJECUTADA"
+        "npm test"
       ],
+
       "reviews": [
         "REVISION_O_VERIFICACION_REALIZADA"
       ],
-      "prediction": "QUE_SE_ESPERABA_QUE_OCURRIERA",
-      "command": "COMANDO_REAL_EJECUTADO",
-      "observedResult": "RESULTADO_REAL_OBSERVADO",
-      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
-    },
 
+"prediction": "Se espera validar que ningún dato sensible o PII sea expuesto en logs, preferencias o reportes tras procesarse en la lógica interna, cubriendo casos normales, objetos anidados, listas y caminos de error.",
+  "command": "git commit -m \"feat(week-04): add negative tests report for sensitivity sanitization\"",
+  "observedResult": "Pruebas negativas registradas exitosamente en reports/week-04/negative-tests.json confirmando la redacción de datos sensibles en todos los escenarios solicitados.",
+  "explanation": "Creación y validación del reporte de pruebas negativas (MART) para asegurar que la información sensible no sea expuesta en los outputs de telemetría, logs o reportes, cubriendo los 4 escenarios obligatorios con base en las especificaciones del proyecto."
 
-
-
-
-    {
-      "studentId": "ID_3",
-      "commitShas": [
-        "............"
-      ],
-      "files": [
-        "........."
-      ],
-      "tests": [
-        "PRUEBA_REAL_EJECUTADA"
-      ],
-      "reviews": [
-        "REVISION_O_VERIFICACION_REALIZADA"
-      ],
-      "prediction": "QUE_SE_ESPERABA_QUE_OCURRIERA",
-      "command": "COMANDO_REAL_EJECUTADO",
-      "observedResult": "RESULTADO_REAL_OBSERVADO",
-      "explanation": "EXPLICACION_BREVE_DE_LA_APORTACION_TECNICA"
     }
   ]
- main
 }

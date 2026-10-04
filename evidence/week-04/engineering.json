@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "week": 4,
+  "commitSha": "64fa3732e41a7f4c79c59b599d82782a505f8760",
+  "decision": "Aplicar controles de seguridad y privacidad centrados en evitar la exposición de información sensible. Para telemetría se implementó redactForTelemetry, que recorre objetos y listas de forma recursiva, reemplaza campos sensibles por [REDACTED] y conserva contexto técnico no sensible para diagnóstico. Los controles se verificaron utilizando únicamente datos ficticios.",
+  "alternatives": [
+    "Registrar directamente las estructuras de datos y conservar sus valores originales para facilitar el diagnóstico.",
+    "Sanitizar las estructuras antes de utilizarlas para telemetría, reemplazando los campos sensibles y conservando únicamente el contexto técnico necesario."
+  ],
+  "tradeoff": "La sanitización reduce el riesgo de exposición de información personal, ubicación, tokens, fotografías y otros datos sensibles, pero implica perder los valores originales de esos campos en la telemetría. Se conserva información técnica como incidentId, status y durationMs para mantener capacidad de diagnóstico. El mecanismo de persistencia segura de tokens queda como riesgo residual porque la función coordinateRefresh todavía no implementa almacenamiento persistente.",
+  "requirementIds": [
+    "AC-01",
+    "AC-02",
+    "AC-03",
+    "AC-04",
+    "AC-05"
+  ],
+  "verification": [
+    {
+      "command": "npm test -- --runInBand course-tests/public/week-04.test.ts",
+      "result": "pass",
+      "evidence": "El test público de Semana 04 pasó correctamente: 1 suite y 1 test aprobados. Se verificó la redacción de authorization, email, displayName, location, photos e internalComments y la conservación de incidentId."
+    },
+    {
+      "command": "npx tsx -e \"import { redactForTelemetry } from './src/course-evaluation/index.ts'; const input = { incidentId: 'campus-inc-001', profile: { email: 'fake@test.local', name: 'Persona ficticia' }, events: [{ location: 'Zona ficticia', status: 'open' }, { token: 'fake-token', durationMs: 120 }] }; const result = redactForTelemetry(input); console.log(JSON.stringify(result, null, 2)); console.log('ORIGINAL:'); console.log(JSON.stringify(input, null, 2));\"",
+      "result": "pass",
+      "evidence": "La prueba manual confirmó sanitización recursiva dentro de objetos y listas. email, name, location y token fueron reemplazados por [REDACTED], mientras status y durationMs permanecieron disponibles. La estructura ORIGINAL conservó sus valores sin sanitizar, demostrando que la función no muta la entrada."
+    },
+    {
+      "command": "make verify-week-04",
+      "result": "pass",
+      "evidence": "El evaluador de Semana 04 terminó con status pass. Pasaron base_files, react_native_profile, toolchain_scripts, workflow_integrity, secret_scan, typecheck, lint, audit:ci y smoke test. El secret_scan reportó hits=[]."
+    }
+  ]
+}
