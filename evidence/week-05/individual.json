@@ -3,6 +3,47 @@
   "week": 5,
   "teamId": "10",
   "members": [
+ feature/week-05-failure-matrix
+    {
+      "studentId": "REYES_TORRES_MANELIC_ALITZEL",
+      "commitShas": [
+        "AQUÍ_PONES_EL_HASH_DEL_COMMIT"
+      ],
+      "files": [
+        "src/course-evaluation/index.ts",
+        "reports/week-05/failure-matrix.json",
+        "evidence/week-05/individual.json"
+      ],
+      "tests": [
+        {
+          "command": "npx jest --testPathPattern=week-05 --runInBand",
+          "result": "pass"
+        },
+        {
+          "command": "npm run backend:self-test",
+          "result": "pass"
+        },
+        {
+          "command": "npm run typecheck",
+          "result": "pass"
+        },
+        {
+          "command": "npm run lint",
+          "result": "pass"
+        }
+      ],
+      "reviews": [
+        {
+          "description": "Verificación de frontera DTO y matriz de fallos de red/contrato",
+          "evidence": "Validación de parseRemoteResource en course-tests/public/week-05.test.ts y documentación de escenarios en reports/week-05/failure-matrix.json"
+        }
+      ],
+      "prediction": "Se esperaba que parseRemoteResource validara correctamente el sobre remoto { id, version, status, payload }, rechazando DTOs malformados con ok: false y aceptando payloads válidos o nulos con ok: true.",
+      "command": "npx jest --testPathPattern=week-05 --runInBand",
+      "observedResult": "Todos los tests de frontera DTO (5/5) pasaron exitosamente. backend:self-test, typecheck y lint ejecutaron sin errores.",
+      "explanation": "Implementación de parseRemoteResource para validar contratos DTO de incidencias y documentación detallada de la matriz de fallos (HTTP 500, 429, malformed, timeout, etc.) en failure-matrix.json."
+    }
+
 
     
 {
@@ -84,5 +125,6 @@
     }
 
     
+ main
   ]
 }
