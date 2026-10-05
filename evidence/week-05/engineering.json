@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "week": 5,
-  "commitSha": "c5e6fb2ac43bc1c6a7c6b5d27e1f266221f75dbd",
+  "commitSha": "b5d0c81e5c61f1bb2773a3833c291f0826c7ef6e",
   "decision": "Separar la capa de cliente del backend de la interfaz y validar el contrato remoto antes de entregar datos al dominio de CampusOps.",
   "alternatives": [
     "Consumir directamente el backend desde las pantallas de la aplicación.",
