@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "week": 5,
+  "commitSha": "b5d0c81e5c61f1bb2773a3833c291f0826c7ef6e",
+  "decision": "Separar la capa de cliente del backend de la interfaz y validar el contrato remoto antes de entregar datos al dominio de CampusOps.",
+  "alternatives": [
+    "Consumir directamente el backend desde las pantallas de la aplicación.",
+    "Centralizar las peticiones y validaciones en una capa de cliente dedicada."
+  ],
+  "tradeoff": "La capa de cliente agrega código y una frontera adicional, pero centraliza la validación del contrato, distingue errores de transporte y contrato, y evita que las pantallas dependan directamente del backend.",
+  "requirementIds": [
+    "AC-01",
+    "AC-02",
+    "AC-03",
+    "AC-04",
+    "AC-05"
+  ],
+  "verification": [
+    {
+      "command": "make verify-week-05",
+      "result": "status: pass",
+      "evidence": "El verificador de Week 5 pasó base_files, react_native_profile, toolchain_scripts, workflow_integrity, secret_scan, typecheck, lint, audit, smoke y backend:self-test."
+    },
+    {
+      "command": "make public-test-week-05",
+      "result": "5/5 pruebas públicas de Week 5 pasaron",
+      "evidence": "course-tests/public/week-05.test.ts validó respuestas correctas, payload null, id vacío, version con tipo incorrecto e input null."
+    },
+    {
+      "command": "npm run backend:self-test",
+      "result": "Controlled backend self-test passed",
+      "evidence": "Se validaron roles, conflicto de reasignación, respuesta perdida, idempotencia, evidencias y geocoding del backend didáctico."
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "pass",
+      "evidence": "TypeScript finalizó sin errores después de implementar parseRemoteResource."
+    },
+    {
+      "command": "npm run lint",
+      "result": "pass",
+      "evidence": "ESLint finalizó sin errores."
+    }
+  ]
+}

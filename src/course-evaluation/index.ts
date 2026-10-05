@@ -38,7 +38,6 @@ function normalizeTelemetryKey(key: string): string {
   return key.toLowerCase().replace(/[_-]/g, '');
 }
 
- feature/week-05-failure-matrix
 
 function redactTelemetryValue(input: unknown): unknown {
   if (Array.isArray(input)) {
@@ -66,22 +65,10 @@ export function redactForTelemetry(input: unknown): unknown {
   return redactTelemetryValue(input);
 }
 
- main
 export function parseRemoteResource(input: unknown): ParseResult {
   if (typeof input !== 'object' || input === null) {
     return { ok: false, error: 'contract' };
   }
-
- feature/week-05-failure-matrix
-  const record = input as Record<string, unknown>;
-  const { id, version, status, payload } = record;
-
-  // 1. ID: string no vacío
-  if (typeof id !== 'string' || id.trim() === '') {
-    return { ok: false, error: 'contract' };
-  }
-
-  // 2. Version: entero no negativo (>= 0)
 
   const candidate = input as Record<string, unknown>;
 
@@ -90,28 +77,18 @@ export function parseRemoteResource(input: unknown): ParseResult {
   const status = candidate.status;
   const payload = candidate.payload;
 
-  if (typeof id !== 'string' || id.length === 0) {
+  if (typeof id !== 'string' || id.trim() === '') {
     return { ok: false, error: 'contract' };
   }
 
- main
   if (typeof version !== 'number' || !Number.isInteger(version) || version < 0) {
     return { ok: false, error: 'contract' };
   }
 
- feature/week-05-failure-matrix
-  // 3. Status: string no vacío
   if (typeof status !== 'string' || status.trim() === '') {
     return { ok: false, error: 'contract' };
   }
 
-  // 4. Payload: objeto o null (ignora campos adicionales del sobre)
-
-  if (typeof status !== 'string' || status.length === 0) {
-    return { ok: false, error: 'contract' };
-  }
-
- main
   if (payload !== null && (typeof payload !== 'object' || Array.isArray(payload))) {
     return { ok: false, error: 'contract' };
   }

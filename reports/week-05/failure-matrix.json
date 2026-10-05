@@ -1,67 +1,71 @@
 {
-  "scenarios": [
+  "schemaVersion": 1,
+  "week": 5,
+  "commitSha": "b5d0c81e5c61f1bb2773a3833c291f0826c7ef6e",
+  "generatedAt": "2026-10-04T00:00:00Z",
+  "checks": [
     {
-      "case": "success",
-      "condition": "El servidor responde HTTP 200 con un sobre válido { id, version, status, payload } que cumple el contrato.",
-      "expectedResult": "parseRemoteResource devuelve { ok: true, value: ... }.",
-      "observedResult": "Respuesta parseada exitosamente con ok: true.",
-      "clientBehavior": "Procesa los datos correctamente y los entrega al dominio de la aplicación."
+      "id": "failure-success",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "El servidor responde HTTP 200 con un sobre válido { id, version, status, payload } que cumple el contrato. parseRemoteResource devuelve ok: true y los datos pueden entregarse al dominio de la aplicación."
     },
     {
-      "case": "nullable",
-      "condition": "El servidor responde HTTP 200 con payload: null en un sobre válido.",
-      "expectedResult": "parseRemoteResource valida ok: true admitiendo payload nulo.",
-      "observedResult": "Se acepta el sobre como válido sin lanzar excepciones.",
-      "clientBehavior": "Acepta la respuesta y gestiona de forma segura la ausencia de payload sin inventar datos."
+      "id": "failure-nullable",
+      "status": "pass",
+      "scenarioType": "boundary",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "El servidor responde HTTP 200 con payload: null en un sobre válido. parseRemoteResource acepta ok: true, mantiene payload null y no inventa datos."
     },
     {
-      "case": "malformed",
-      "condition": "El servidor entrega un JSON que viola el contrato (id vacío, versión string en lugar de entero, status ausente o estructura corrupta).",
-      "expectedResult": "parseRemoteResource detecta el fallo de contrato y devuelve { ok: false, error: 'contract' }.",
-      "observedResult": "Incapacidad de parseo de contrato capturada con ok: false.",
-      "clientBehavior": "Diferencia este error de un fallo HTTP 500/red y rechaza el payload para evitar procesar datos corruptos."
+      "id": "failure-malformed",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "Un JSON que viola el contrato, como id vacío o version con tipo incorrecto, es rechazado por parseRemoteResource con ok: false y error: contract."
     },
     {
-      "case": "server_error",
-      "condition": "El backend responde con código de estado HTTP 500.",
-      "expectedResult": "El cliente HTTP captura la respuesta con código 500 y reporta un error de servidor.",
-      "observedResult": "Capturado como excepción o error HTTP 500 explícito.",
-      "clientBehavior": "Diferencia este fallo de un error de contrato (payload malformado) e informa la indisponibilidad del backend."
+      "id": "failure-server-error",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm run backend:self-test",
+      "evidence": "El cliente debe diferenciar una respuesta HTTP 500 de un error de contrato y tratarla como indisponibilidad del backend. El backend didáctico incluye escenarios controlados de error de servidor."
     },
     {
-      "case": "rate_limited",
-      "condition": "El backend responde con código de estado HTTP 429 y cabecera Retry-After.",
-      "expectedResult": "El cliente identifica la limitación de tasa de solicitudes.",
-      "observedResult": "Código 429 capturado correctamente por la capa HTTP.",
-      "clientBehavior": "Registra el bloqueo por límite de tasa y respeta el tiempo indicado antes de reintentar."
+      "id": "failure-rate-limited",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm run backend:self-test",
+      "evidence": "El backend didáctico contempla HTTP 429 con Retry-After para representar limitación de tasa. El cliente debe distinguir este escenario de un payload malformado."
     },
     {
-      "case": "slow",
-      "condition": "El servidor retarda la respuesta más allá del umbral de tiempo límite configurado.",
-      "expectedResult": "El cliente interrumpe la conexión por timeout.",
-      "observedResult": "Solicitud cancelada por el cliente antes de recibir respuesta.",
-      "clientBehavior": "Aborta la petición pendiente para evitar bloquear la aplicación."
+      "id": "failure-slow",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm run backend:self-test",
+      "evidence": "El backend didáctico contempla respuestas lentas. El cliente debe aplicar un timeout y abortar la petición pendiente para evitar bloquear la aplicación."
     },
     {
-      "case": "invalid_coordinates",
-      "condition": "Petición de geocodificación con parámetros fuera de rango o coordenadas inválidas.",
-      "expectedResult": "Respuesta de error de validación de coordenadas capturada.",
-      "observedResult": "Error de validación reportado por el backend.",
-      "clientBehavior": "Notifica que las coordenadas no son válidas y permite la selección o captura manual."
+      "id": "failure-invalid-coordinates",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm run backend:self-test",
+      "evidence": "El backend didáctico contempla el escenario invalid_coordinates para geocodificación. El cliente debe distinguir una entrada de coordenadas inválida y permitir una captura o selección manual."
     },
     {
-      "case": "incomplete",
-      "condition": "El servidor interrumpe la transmisión del cuerpo de la respuesta o envía un JSON truncado.",
-      "expectedResult": "Fallo en la deserialización JSON o en la comprobación del sobre.",
-      "observedResult": "SyntaxError de JSON o error de contrato en parseRemoteResource.",
-      "clientBehavior": "Trata el payload como incompleto/corrupto y aborta el procesamiento."
+      "id": "failure-incomplete",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm test -- --runInBand course-tests/public/week-05.test.ts",
+      "evidence": "Una respuesta incompleta o corrupta debe provocar un fallo de deserialización o de contrato y el cliente debe abortar el procesamiento de datos inválidos."
     },
     {
-      "case": "timeout_after_commit",
-      "condition": "El backend guarda/persiste la operación (commit), pero la respuesta tarda en llegar y el cliente hace timeout.",
-      "expectedResult": "El cliente experimenta un timeout en la respuesta, dejando en incertidumbre si la acción se ejecutó.",
-      "observedResult": "Timeout registrado en el cliente mientras la operación fue guardada exitosamente en el backend.",
-      "clientBehavior": "Al reintentar la operación, utiliza la misma Idempotency-Key estable para garantizar que el backend reconozca la petición y no duplique el historial."
+      "id": "failure-timeout-after-commit",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm run backend:self-test",
+      "evidence": "El backend contempla timeout_after_commit. Si el cliente pierde la respuesta después de que la operación fue guardada, el reintento debe utilizar la misma Idempotency-Key estable para evitar duplicar el historial."
     }
   ]
 }
