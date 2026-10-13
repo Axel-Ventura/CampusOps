@@ -38,6 +38,7 @@ function normalizeTelemetryKey(key: string): string {
   return key.toLowerCase().replace(/[_-]/g, '');
 }
 
+
 function redactTelemetryValue(input: unknown): unknown {
   if (Array.isArray(input)) {
     return input.map((item) => redactTelemetryValue(item));
@@ -103,90 +104,14 @@ export function parseRemoteResource(input: unknown): ParseResult {
   };
 }
 
-export function coordinateRefresh(events: readonly AuthEvent[]): Readonly<{
+export function coordinateRefresh(_events: readonly AuthEvent[]): Readonly<{
   status: 'anonymous' | 'authenticated';
   activeGeneration: number | null;
   refreshCalls: number;
   retriedRequestIds: readonly string[];
   persistedToken: string | null;
 }> {
-  let status: 'anonymous' | 'authenticated' = 'anonymous';
-  let activeGeneration: number | null = null;
-  let refreshCalls = 0;
-  let persistedToken: string | null = null;
-
-  let inFlightGeneration: number | null = null;
-  const pendingRequestIds: string[] = [];
-  const retriedRequestIds: string[] = [];
-
-  for (const event of events) {
-    switch (event.type) {
-      case 'request401': {
-        const reqGen = event.generation ?? activeGeneration ?? 0;
-
-        // Si no hay renovación en curso para esta generación, inicia una llamada
-        if (inFlightGeneration === null || inFlightGeneration !== reqGen) {
-          inFlightGeneration = reqGen;
-          refreshCalls++;
-        }
-
-        // Cada solicitud se encola como máximo una vez
-        if (event.requestId && !pendingRequestIds.includes(event.requestId)) {
-          pendingRequestIds.push(event.requestId);
-        }
-        break;
-      }
-
-      case 'refreshSucceeded': {
-        const newGen = event.generation ?? 1;
-        const newToken = event.token ?? null;
-
-        // Descarta respuestas obsoletas (boundary condition)
-        if (activeGeneration === null || newGen > activeGeneration) {
-          activeGeneration = newGen;
-          persistedToken = newToken;
-          status = 'authenticated';
-
-          // Reintentar las solicitudes pendientes exactamente una vez
-          for (const reqId of pendingRequestIds) {
-            if (!retriedRequestIds.includes(reqId)) {
-              retriedRequestIds.push(reqId);
-            }
-          }
-          pendingRequestIds.length = 0;
-        }
-
-        inFlightGeneration = null;
-        break;
-      }
-
-      case 'refreshFailed': {
-        inFlightGeneration = null;
-        pendingRequestIds.length = 0;
-        status = 'anonymous';
-        activeGeneration = null;
-        persistedToken = null;
-        break;
-      }
-
-      case 'logout': {
-        inFlightGeneration = null;
-        pendingRequestIds.length = 0;
-        status = 'anonymous';
-        activeGeneration = null;
-        persistedToken = null;
-        break;
-      }
-    }
-  }
-
-  return {
-    status,
-    activeGeneration,
-    refreshCalls,
-    retriedRequestIds,
-    persistedToken,
-  };
+  return pending('coordinateRefresh');
 }
 
 export function resolveSync(
