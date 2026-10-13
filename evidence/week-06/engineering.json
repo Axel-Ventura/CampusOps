@@ -1,0 +1,38 @@
+{
+    "verification":  [
+                         {
+                             "evidence":  "La prueba de tres solicitudes 401 verifico una sola renovacion, tres solicitudes reintentadas y token actualizado. La prueba logout verifico persistedToken null.",
+                             "command":  "npm test -- --runInBand course-tests/public/week-06.test.ts",
+                             "result":  "pass: 2/2 pruebas"
+                         },
+                         {
+                             "evidence":  "TypeScript finalizo sin errores.",
+                             "command":  "npm run typecheck",
+                             "result":  "pass"
+                         },
+                         {
+                             "evidence":  "ESLint finalizo sin errores.",
+                             "command":  "npm run lint",
+                             "result":  "pass"
+                         },
+                         {
+                             "evidence":  "Las pruebas de Semana 6 aprobaron, pero la evaluacion general fallo por evidencias, codificacion JSON y vulnerabilidades de dependencias. Las evidencias estan en proceso de correccion.",
+                             "command":  "python tools/course_public_evaluator.py --week 06 --mode public --execute-toolchain",
+                             "result":  "fail"
+                         }
+                     ],
+    "requirementIds":  [
+                           "AC-01",
+                           "AC-02",
+                           "AC-03"
+                       ],
+    "week":  6,
+    "alternatives":  [
+                         "Realizar una renovacion independiente por cada solicitud que recibe HTTP 401.",
+                         "Centralizar las renovaciones pendientes y compartir una sola renovacion entre solicitudes concurrentes."
+                     ],
+    "tradeoff":  "Coordinar la renovacion requiere mantener el estado de solicitudes pendientes y la generacion activa, pero evita renovaciones duplicadas y reduce el riesgo de reintentos inconsistentes.",
+    "commitSha":  "914f9c18b21c783ea953c9a9d305f0f51ce836d4",
+    "decision":  "Coordinar las solicitudes HTTP 401 mediante una sola renovacion de sesion, reintentar cada solicitud una vez y limpiar el token ante logout o renovacion fallida.",
+    "schemaVersion":  1
+}

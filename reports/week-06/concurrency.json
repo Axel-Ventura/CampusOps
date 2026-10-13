@@ -1,0 +1,29 @@
+{
+    "checks":  [
+                   {
+                       "scenarioType":  "boundary",
+                       "status":  "pass",
+                       "command":  "npm test -- --runInBand course-tests/public/week-06.test.ts",
+                       "id":  "concurrency-single-refresh",
+                       "evidence":  "Tres eventos request401 para a, b y c con generation 0 se procesaron con un solo refresh. La prueba publica aprobo y verifico refreshCalls igual a 1."
+                   },
+                   {
+                       "scenarioType":  "boundary",
+                       "status":  "pass",
+                       "command":  "npm test -- --runInBand course-tests/public/week-06.test.ts",
+                       "id":  "concurrency-retry-once",
+                       "evidence":  "Tras refreshSucceeded, la prueba publica comprobo retriedRequestIds igual a [\u0027a\u0027, \u0027b\u0027, \u0027c\u0027], sin solicitudes duplicadas."
+                   },
+                   {
+                       "scenarioType":  "nominal",
+                       "status":  "pass",
+                       "command":  "npm test -- --runInBand course-tests/public/week-06.test.ts",
+                       "id":  "concurrency-new-token",
+                       "evidence":  "La prueba publica comprobo activeGeneration igual a 1 y persistedToken igual a course-token-1 despues de renovar la sesion."
+                   }
+               ],
+    "generatedAt":  "2026-10-13T04:38:15Z",
+    "schemaVersion":  1,
+    "week":  6,
+    "commitSha":  "914f9c18b21c783ea953c9a9d305f0f51ce836d4"
+}
