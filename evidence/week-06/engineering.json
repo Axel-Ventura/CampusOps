@@ -32,7 +32,7 @@
                          "Centralizar las renovaciones pendientes y compartir una sola renovacion entre solicitudes concurrentes."
                      ],
     "tradeoff":  "Coordinar la renovacion requiere mantener el estado de solicitudes pendientes y la generacion activa, pero evita renovaciones duplicadas y reduce el riesgo de reintentos inconsistentes.",
-    "commitSha":  "914f9c18b21c783ea953c9a9d305f0f51ce836d4",
+    "commitSha":  "d2d3d80bd1a04a239f0ecce98ca002ac367bfd2c",
     "decision":  "Coordinar las solicitudes HTTP 401 mediante una sola renovacion de sesion, reintentar cada solicitud una vez y limpiar el token ante logout o renovacion fallida.",
     "schemaVersion":  1
 }

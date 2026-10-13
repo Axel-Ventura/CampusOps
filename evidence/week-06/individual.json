@@ -30,7 +30,7 @@
 
 {
   "studentId": "Sánchez Ventura Axel Eduardo",
-  "commitShas": [],
+  "commitShas": ["d2d3d80bd1a04a239f0ecce98ca002ac367bfd2c"],
   "files": [
     "reports/week-06/auth-tests.json"
   ],
