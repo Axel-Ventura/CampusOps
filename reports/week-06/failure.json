@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "week": 6,
+  "mode": "evidence",
+  "commitSha": "7a003c225ef760912b58e81afb177c3a0c2c8d00",
+  "evaluatedAt": "2026-10-13T02:59:35.443449+00:00",
+  "status": "fail",
+  "checks": [
+    {
+      "id": "base_files",
+      "status": "pass",
+      "detail": "missing=[]"
+    },
+    {
+      "id": "react_native_profile",
+      "status": "pass",
+      "detail": "missing packages=[]"
+    },
+    {
+      "id": "toolchain_scripts",
+      "status": "pass",
+      "detail": "missing scripts=[]"
+    },
+    {
+      "id": "workflow_integrity",
+      "status": "pass",
+      "detail": "bypass markers=[]"
+    },
+    {
+      "id": "secret_scan",
+      "status": "pass",
+      "detail": "hits=[]"
+    },
+    {
+      "id": "required_evidence",
+      "status": "fail",
+      "detail": "missing/empty=['docs/session-state-machine.mmd', 'reports/week-06/auth-tests.json', 'evidence/week-06/engineering.json']"
+    },
+    {
+      "id": "schema:reports/week-06/concurrency.json",
+      "status": "fail",
+      "detail": "missing keys: ['checks']"
+    },
+    {
+      "id": "schema:evidence/week-06/individual.json",
+      "status": "fail",
+      "detail": "each member requires ['command', 'commitShas', 'explanation', 'files', 'observedResult', 'prediction', 'reviews', 'studentId', 'tests']"
+    },
+    {
+      "id": "frozen_sha",
+      "status": "fail",
+      "detail": "tag=week-06-final tagSha=fatal: ambiguous argument 'week-06-final': unknown revision or path not in the working tree.\nUse '--' to separate paths from revisions, like this:\n'git <command> [<revision>...] -- [<file>...]' head=7a003c225ef760912b58e81afb177c3a0c2c8d00"
+    }
+  ]
+}
