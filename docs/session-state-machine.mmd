@@ -1,0 +1,29 @@
+stateDiagram-v2
+    %% Borrador basado en AuthEvent (contracts.ts) y course-tests/public/week-06.test.ts.
+    %% Al momento de este commit coordinateRefresh sigue como pending en dev y la app no tiene login.
+    %% Verificar contra la implementacion final antes de darlo por definitivo.
+    state "No autenticado" as NoAuth
+    state "Inicio de sesion" as Login
+    state "Sesion autenticada y valida" as Valida
+    state "Sesion expirada" as Expirada
+    state "Renovacion en curso" as Renovando
+    state "Renovacion exitosa" as RenovOk
+    state "Renovacion fallida" as RenovFalla
+    state "Cierre de sesion" as Logout
+
+    [*] --> NoAuth
+    NoAuth --> Login : el usuario inicia sesion con un actor
+    Login --> Valida : login exitoso, se guardan los tokens
+    Login --> NoAuth : login rechazado
+    Valida --> Expirada : una peticion recibe 401
+    Expirada --> Renovando : primer 401 inicia un solo refresh
+    Renovando --> Renovando : otros 401 esperan el mismo refresh
+    Renovando --> RenovOk : evento refreshSucceeded
+    RenovOk --> Valida : se reintenta cada peticion una vez con el token nuevo
+    Renovando --> RenovFalla : evento refreshFailed
+    RenovFalla --> NoAuth : se borran los tokens y no se reintenta
+    Valida --> Logout : el usuario cierra sesion
+    Logout --> NoAuth : persistedToken queda en null
+
+    note right of Login : Pendiente. La app aun no implementa el login
+    note right of Renovando : Pendiente. coordinateRefresh aun es pending

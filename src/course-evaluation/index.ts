@@ -104,15 +104,86 @@ export function parseRemoteResource(input: unknown): ParseResult {
   };
 }
 
-export function coordinateRefresh(_events: readonly AuthEvent[]): Readonly<{
+
+export function coordinateRefresh(events: readonly AuthEvent[]): Readonly<{
   status: 'anonymous' | 'authenticated';
   activeGeneration: number | null;
   refreshCalls: number;
   retriedRequestIds: readonly string[];
   persistedToken: string | null;
 }> {
-  return pending('coordinateRefresh');
+  let status: 'anonymous' | 'authenticated' = 'anonymous';
+  let activeGeneration: number | null = null;
+  let refreshCalls = 0;
+  let persistedToken: string | null = null;
+  let refreshPending = false;
+
+  const waitingRequests = new Set<string>();
+  const retriedRequestIds: string[] = [];
+
+  for (const event of events) {
+    switch (event.type) {
+      case 'request401': {
+        if (!refreshPending) {
+          refreshPending = true;
+          refreshCalls += 1;
+        }
+
+        if (event.requestId) {
+          waitingRequests.add(event.requestId);
+        }
+        break;
+      }
+
+      case 'refreshSucceeded': {
+        if (!refreshPending || !event.token || event.generation === undefined) {
+          break;
+        }
+
+        status = 'authenticated';
+        activeGeneration = event.generation;
+        persistedToken = event.token;
+
+        for (const requestId of waitingRequests) {
+          if (!retriedRequestIds.includes(requestId)) {
+            retriedRequestIds.push(requestId);
+          }
+        }
+
+        waitingRequests.clear();
+        refreshPending = false;
+        break;
+      }
+
+      case 'refreshFailed': {
+        status = 'anonymous';
+        activeGeneration = null;
+        persistedToken = null;
+        waitingRequests.clear();
+        refreshPending = false;
+        break;
+      }
+
+      case 'logout': {
+        status = 'anonymous';
+        activeGeneration = null;
+        persistedToken = null;
+        waitingRequests.clear();
+        refreshPending = false;
+        break;
+      }
+    }
+  }
+
+  return {
+    status,
+    activeGeneration,
+    refreshCalls,
+    retriedRequestIds,
+    persistedToken,
+  };
 }
+
 
 export function resolveSync(
   _base: SyncRecord,

@@ -1,0 +1,22 @@
+{
+    "checks":  [
+                   {
+                       "scenarioType":  "nominal",
+                       "status":  "pass",
+                       "command":  "npm test -- --runInBand course-tests/public/week-06.test.ts",
+                       "id":  "auth-refresh-success",
+                       "evidence":  "La prueba publica de concurrencia aprobo. Tras refreshSucceeded con generation 1 y token course-token-1, coordinateRefresh devolvio status authenticated, activeGeneration 1 y persistedToken course-token-1."
+                   },
+                   {
+                       "scenarioType":  "failure",
+                       "status":  "pass",
+                       "command":  "npm test -- --runInBand course-tests/public/week-06.test.ts",
+                       "id":  "auth-logout-clears-token",
+                       "evidence":  "La prueba publica logout removes persisted session state aprobo. coordinateRefresh con evento logout devolvio persistedToken null."
+                   }
+               ],
+    "generatedAt":  "2026-10-13T04:38:15Z",
+    "schemaVersion":  1,
+    "week":  6,
+    "commitSha":  "f37e598474e3eedd7c3f518c7887821797979612"
+}

@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "week": 6,
+  "teamId": "10",
+  "members": [
+
+
+
+{
+  "studentId": "Paniagua González Concepción Guadalupe",
+  "commitShas": [
+    "cff453eabed806ed666a120c9005eb0086c770af"
+  ],
+  "files": [
+    "docs/session-state-machine.mmd"
+  ],
+  "tests": [
+    "Revision de los eventos de sesion definidos en src/course-evaluation/contracts.ts",
+    "Revision de los escenarios de course-tests/public/week-06.test.ts"
+  ],
+  "reviews": [
+    "Revision del flujo de autenticacion, expiracion de sesion, renovacion de token y cierre de sesion representado en el diagrama."
+  ],
+  "prediction": "Una sesion autenticada debe pasar a renovacion cuando recibe HTTP 401. Las solicitudes adicionales deben esperar una sola renovacion. Si esta tiene exito, la sesion vuelve a estar autenticada; si falla o el usuario cierra sesion, debe regresar al estado no autenticado.",
+  "command": "Get-Content docs/session-state-machine.mmd",
+  "observedResult": "El archivo contiene un diagrama Mermaid con los estados No autenticado, Inicio de sesion, Sesion autenticada y valida, Sesion expirada, Renovacion en curso, Renovacion exitosa, Renovacion fallida y Cierre de sesion.",
+  "explanation": "Se documento el ciclo de vida de la sesion mediante un diagrama de estados Mermaid. El diseño contempla las transiciones por HTTP 401, la coordinacion de solicitudes durante la renovacion, el resultado exitoso o fallido del refresh y el cierre de sesion. El archivo se creo como borrador de diseño y señala que el login real y coordinateRefresh estaban pendientes al momento de su elaboracion."
+},
+
+
+{
+  "studentId": "Sánchez Ventura Axel Eduardo",
+  "commitShas": ["d2d3d80bd1a04a239f0ecce98ca002ac367bfd2c"],
+  "files": [
+    "reports/week-06/auth-tests.json"
+  ],
+  "tests": [
+    "npm test -- --runInBand course-tests/public/week-06.test.ts"
+  ],
+  "reviews": [
+    "Revise los resultados de las pruebas publicas de autenticacion y documente los casos de renovacion exitosa y cierre de sesion."
+  ],
+  "prediction": "Al recibir tres solicitudes 401 simultaneas, se espera una sola renovacion, tres reintentos y un token actualizado. Al cerrar sesion, el token persistido debe quedar en null.",
+  "command": "npm test -- --runInBand course-tests/public/week-06.test.ts",
+  "observedResult": "PASS: 2 pruebas aprobadas de 2. La renovacion concurrente y la eliminacion del token al cerrar sesion funcionaron correctamente.",
+  "explanation": "Las pruebas confirmaron que coordinateRefresh agrupa solicitudes 401 en una sola renovacion y registra los reintentos correspondientes. Tambien comprobe que logout elimina el token persistido. Documente estos resultados en reports/week-06/auth-tests.json."
+},
+
+
+
+{
+  "studentId": "Reyes Torres Manelic Alitzel",
+  "commitShas": ["8b2391da10e6488a4acf08d131a568cd4df1ec17"],
+  "files": [
+    "reports/week-06/concurrency.json"
+  ],
+  "tests": [
+    "coalesces concurrent 401s into one refresh and retries each request once",
+    "logout removes persisted session state"
+  ],
+  "reviews": [
+    "Revise los escenarios de concurrencia relacionados con multiples solicitudes HTTP 401, renovacion unica del token y cierre de sesion."
+  ],
+  "prediction": "Al recibir tres solicitudes 401 simultaneas, el sistema debe realizar una sola renovacion y reintentar cada solicitud una vez. Al cerrar sesion, el token persistido debe quedar en null.",
+  "command": "npm test -- --runInBand course-tests/public/week-06.test.ts",
+  "observedResult": "PASS: 2 pruebas aprobadas de 2. Se verifico refreshCalls igual a 1, retriedRequestIds igual a ['a', 'b', 'c'] y persistedToken null al ejecutar logout.",
+  "explanation": "Las pruebas publicas confirmaron que coordinateRefresh coordina multiples solicitudes 401 mediante una sola renovacion y registra los reintentos correspondientes. Tambien confirmaron que el cierre de sesion elimina el token persistido. La renovacion fallida y el logout durante una renovacion requieren pruebas adicionales."
+}
+  ]
+}
