@@ -1,0 +1,58 @@
+
+{
+  "schemaVersion": 1,
+  "week": 8,
+  "teamId": "10",
+  "members": [
+    {
+      "studentId": "Sánchez Ventura Axel Eduardo",
+      "commitShas": [
+        "REEMPLAZAR_CON_TU_SHA_DE_40_CARACTERES"
+      ],
+      "files": [
+        "src/course-evaluation/index.ts",
+        "src/persistence/database.ts",
+        "App.tsx",
+        "reports/week-08/migration-tests.json"
+      ],
+      "tests": [
+        "npm test -- --runInBand course-tests/public/week-08.test.ts",
+        "npm run typecheck",
+        "npm run lint",
+        "npm run test:smoke"
+      ],
+      "reviews": [],
+      "prediction": "Los cambios independientes se combinaran, los cambios incompatibles generaran un conflicto y las operaciones con operationId repetido conservaran su primera aparicion.",
+      "command": "npm test -- --runInBand course-tests/public/week-08.test.ts",
+      "observedResult": "PASS: 3 pruebas publicas aprobadas. TypeScript, ESLint y smoke test tambien finalizaron sin errores.",
+      "explanation": "Implemente la resolucion de conflictos y la deduplicacion de operaciones. Prepare la persistencia inicial con SQLite y controles para registrar y consultar operaciones sinteticas. Las pruebas de migracion, rollback y reinicio permanecen pendientes."
+    },
+
+
+    {
+      "studentId": "PENDIENTE",
+      "commitShas": [],
+      "files": [],
+      "tests": [],
+      "reviews": [],
+      "prediction": "PENDIENTE",
+      "command": "PENDIENTE",
+      "observedResult": "PENDIENTE",
+      "explanation": "PENDIENTE"
+    },
+
+
+
+    {
+      "studentId": "PENDIENTE",
+      "commitShas": [],
+      "files": [],
+      "tests": [],
+      "reviews": [],
+      "prediction": "PENDIENTE",
+      "command": "PENDIENTE",
+      "observedResult": "PENDIENTE",
+      "explanation": "PENDIENTE"
+    }
+  ]
+}

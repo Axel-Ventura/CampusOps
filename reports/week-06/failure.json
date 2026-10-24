@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "week": 6,
   "mode": "evidence",
-  "commitSha": "7916c0d6572b770e2c5d6c8ea3b298404f11c9be",
-  "evaluatedAt": "2026-10-13T05:37:17.873952+00:00",
-  "status": "fail",
+  "commitSha": "aa618fc4bf6f6543553b194460ddec36048848a2",
+  "evaluatedAt": "2026-10-13T05:50:15.833077+00:00",
+  "status": "pass",
   "checks": [
     {
       "id": "base_files",
@@ -39,17 +39,17 @@
     {
       "id": "schema:reports/week-06/auth-tests.json",
       "status": "pass",
-      "detail": "2 checks indexed, 1 boundary/failure; report evaluates HEAD"
+      "detail": "2 checks indexed, 1 boundary/failure; evidence-only commit; invalid changes=[]"
     },
     {
       "id": "schema:reports/week-06/concurrency.json",
       "status": "pass",
-      "detail": "3 checks indexed, 2 boundary/failure; report evaluates HEAD"
+      "detail": "3 checks indexed, 2 boundary/failure; evidence-only commit; invalid changes=[]"
     },
     {
       "id": "schema:evidence/week-06/engineering.json",
       "status": "pass",
-      "detail": "decision evidence is substantive and reproducible; report evaluates HEAD"
+      "detail": "decision evidence is substantive and reproducible; evidence-only commit; invalid changes=[]"
     },
     {
       "id": "schema:evidence/week-06/individual.json",
@@ -58,8 +58,8 @@
     },
     {
       "id": "frozen_sha",
-      "status": "fail",
-      "detail": "tag=week-06-final tagSha=2c5a108dc42a35c3db8fc12c47baedc56236415e head=7916c0d6572b770e2c5d6c8ea3b298404f11c9be"
+      "status": "pass",
+      "detail": "tag=week-06-final tagSha=aa618fc4bf6f6543553b194460ddec36048848a2 head=aa618fc4bf6f6543553b194460ddec36048848a2"
     }
   ]
 }

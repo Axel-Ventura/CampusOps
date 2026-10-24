@@ -1,0 +1,50 @@
+﻿{
+    "schemaVersion":  1,
+    "week":  8,
+    "commitSha":  "REEMPLAZAR_CON_SHA_COMPLETO",
+    "generatedAt":  "2026-10-24T12:22:16-06:00",
+    "checks":  [
+                   {
+                       "id":  "offline-reassignment-conflict",
+                       "status":  "pass",
+                       "scenarioType":  "nominal",
+                       "command":  "npm test -- --runInBand course-tests/public/week-08.test.ts",
+                       "evidence":  "Jest PASS: detecta conflicto en work cuando technician-1 inicia atencion local y la incidencia se reasigna a technician-2. No modifica los registros originales."
+                   },
+                   {
+                       "id":  "independent-changes-merge",
+                       "status":  "pass",
+                       "scenarioType":  "nominal",
+                       "command":  "npm test -- --runInBand course-tests/public/week-08.test.ts",
+                       "evidence":  "Jest PASS: combina title=Local con priority=2 y detecta conflicto cuando ambos lados modifican title de forma incompatible."
+                   },
+                   {
+                       "id":  "duplicate-operation",
+                       "status":  "pass",
+                       "scenarioType":  "boundary",
+                       "command":  "npm test -- --runInBand course-tests/public/week-08.test.ts",
+                       "evidence":  "Jest PASS: deduplicateOperations conserva la primera operacion op-1 y la operacion op-2, sin duplicar op-1."
+                   },
+                   {
+                       "id":  "typescript-validation",
+                       "status":  "pass",
+                       "scenarioType":  "nominal",
+                       "command":  "npm run typecheck",
+                       "evidence":  "tsc --noEmit finalizo sin errores."
+                   },
+                   {
+                       "id":  "lint-validation",
+                       "status":  "pass",
+                       "scenarioType":  "nominal",
+                       "command":  "npm run lint",
+                       "evidence":  "eslint . finalizo sin errores."
+                   },
+                   {
+                       "id":  "smoke-test",
+                       "status":  "pass",
+                       "scenarioType":  "nominal",
+                       "command":  "npm run test:smoke",
+                       "evidence":  "Jest PASS: 1 prueba aprobada; renderiza la pantalla base y comprueba el estado del backend."
+                   }
+               ]
+}
