@@ -31,7 +31,7 @@
 
     {
       "studentId": "Paniagua González Concepción Guadalupe",
-      "commitShas": [],
+      "commitShas": ["ec5b7553a0c0e42ecd4d4d867e506f6dc09a9588"],
       "files": [
         "docs/sync-policy.md"
       ],
@@ -51,7 +51,7 @@
 
     {
   "studentId": "Reyes Torres Manelic Alitzel",
-  "commitShas": [],
+  "commitShas": ["e593a2db683fb37ce9c1490c666413eba7f8853f"],
   "files": [
     "docs/data-model.md"
   ],
