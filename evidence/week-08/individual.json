@@ -30,15 +30,21 @@
 
 
     {
-      "studentId": "PENDIENTE",
+      "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [],
-      "files": [],
-      "tests": [],
-      "reviews": [],
-      "prediction": "PENDIENTE",
-      "command": "PENDIENTE",
-      "observedResult": "PENDIENTE",
-      "explanation": "PENDIENTE"
+      "files": [
+        "docs/sync-policy.md"
+      ],
+      "tests": [
+        "npm test -- --runInBand course-tests/public/week-08.test.ts"
+      ],
+      "reviews": [
+        "Revisión de docs/sync-policy.md comparándolo con resolveSync y deduplicateOperations (src/course-evaluation/index.ts), la cola SQLite (src/persistence/database.ts) y el uso en App.tsx"
+      ],
+      "prediction": "Esperaba que cada regla de la política pudiera respaldarse con el código existente: resolveSync combinando campos independientes y reportando en orden de nombre los incompatibles, deduplicateOperations conservando la primera operación por operationId y la cola SQLite guardando cada operación con su identidad",
+      "command": "git grep -n -E \"resolveSync|deduplicateOperations|confirmOperation|getPendingOperations|enqueueOperation\" -- src App.tsx",
+      "observedResult": "resolveSync (index.ts:189) y deduplicateOperations (index.ts:233) ya están implementadas, y database.ts define la cola pending_operations con operation_id como clave primaria e INSERT OR IGNORE. App.tsx solo usa enqueueOperation y getPendingOperations: nada llama a confirmOperation, nada maneja 403 o 409 y todavía no hay migraciones. Por eso esos puntos quedaron marcados como pendientes en la política",
+      "explanation": "Creé docs/sync-policy.md con los siete puntos pedidos. Escribi cada regla a partir del código que ya existe y agregué una línea de estado en cada punto para no prometer lo que todavía no funciona: la conexión de la cola con el servidor, el aviso del conflicto en pantalla, el reintento automático y el manejo de 403 y 409 siguen pendientes"
     },
 
 
