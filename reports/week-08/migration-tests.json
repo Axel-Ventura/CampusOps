@@ -1,8 +1,8 @@
-﻿{
+{
     "schemaVersion":  1,
     "week":  8,
-    "commitSha":  "6716dd8cafa9a56b56144eee99235e2fcd4f891b",
-    "generatedAt":  "2026-10-24T12:22:16-06:00",
+    "commitSha":  "ae0d89afc06ef5c86906d682be9a6ef1184e9bdd",
+    "generatedAt":  "2026-10-26T22:27:16-06:00",
     "checks":  [
                    {
                        "id":  "offline-reassignment-conflict",
@@ -45,6 +45,34 @@
                        "scenarioType":  "nominal",
                        "command":  "npm run test:smoke",
                        "evidence":  "Jest PASS: 1 prueba aprobada; renderiza la pantalla base y comprueba el estado del backend."
+                   },
+                   {
+                       "scenarioType":  "boundary",
+                       "status":  "pass",
+                       "command":  "node scripts/week08-sqlite-check.cjs",
+                       "id":  "sqlite-reopen",
+                       "evidence":  "PASS: al cerrar y reabrir la conexion SQLite, op-001 conserva su identificador, contenido, incidencia, autor y version base en el archivo temporal."
+                   },
+                   {
+                       "scenarioType":  "failure",
+                       "status":  "pass",
+                       "command":  "node scripts/week08-sqlite-check.cjs",
+                       "id":  "sqlite-migration-failure-rollback",
+                       "evidence":  "PASS: una falla sintetica durante la migracion revierte el cambio de esquema y mantiene intactos los registros anteriores."
+                   },
+                   {
+                       "scenarioType":  "nominal",
+                       "status":  "pass",
+                       "command":  "node scripts/week08-sqlite-check.cjs",
+                       "id":  "sqlite-migration-success",
+                       "evidence":  "PASS: migracion sintetica del esquema 1 al 2; se conservan una incidencia y una operacion pendiente."
+                   },
+                   {
+                       "scenarioType":  "boundary",
+                       "status":  "pass",
+                       "command":  "node scripts/week08-sqlite-check.cjs",
+                       "id":  "sqlite-local-deduplication",
+                       "evidence":  "PASS: INSERT OR IGNORE con operationId op-001 repetido mantiene una sola operacion pendiente."
                    }
                ]
 }

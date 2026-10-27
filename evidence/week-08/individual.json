@@ -7,7 +7,7 @@
     {
       "studentId": "Sánchez Ventura Axel Eduardo",
       "commitShas": [
-        "REEMPLAZAR_CON_TU_SHA_DE_40_CARACTERES"
+        "ae0d89afc06ef5c86906d682be9a6ef1184e9bdd"
       ],
       "files": [
         "src/course-evaluation/index.ts",

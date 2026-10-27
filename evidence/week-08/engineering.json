@@ -1,40 +1,39 @@
-
 {
-  "schemaVersion": 1,
-  "week": 8,
-  "commitSha": "6716dd8cafa9a56b56144eee99235e2fcd4f891b",
-  "decision": "Usar una cola SQLite local con operationId estable y baseVersion para conservar operaciones sinteticas sin conexion. Combinar cambios independientes mediante resolveSync y declarar conflicto cuando los dos lados cambian de forma incompatible el mismo campo. Conservar operaciones no confirmadas hasta recibir confirmacion valida del servidor.",
-  "alternatives": [
-    "Guardar operaciones solo en memoria, alternativa descartada porque no conserva los datos al reiniciar.",
-    "Aplicar siempre la version remota, alternativa descartada porque perderia la intencion local del tecnico.",
-    "Sobrescribir siempre el servidor con cambios locales, alternativa descartada porque podria imponer una asignacion antigua."
-  ],
-  "tradeoff": "SQLite proporciona almacenamiento persistente e identidad estable mediante una clave primaria, pero requiere migraciones transaccionales y pruebas nativas. La deteccion explicita de conflictos evita sobrescribir datos incompatibles, aunque obliga a mantener operaciones pendientes hasta su resolucion.",
-  "requirementIds": [
-    "AC-02",
-    "AC-03",
-    "AC-04"
-  ],
-  "verification": [
-    {
-      "command": "npm test -- --runInBand course-tests/public/week-08.test.ts",
-      "result": "pass",
-      "evidence": "3 pruebas aprobadas: conflicto por reasignacion, combinacion de campos independientes y deduplicacion por operationId."
-    },
-    {
-      "command": "npm run typecheck",
-      "result": "pass",
-      "evidence": "tsc --noEmit finalizo sin errores."
-    },
-    {
-      "command": "npm run lint",
-      "result": "pass",
-      "evidence": "eslint . finalizo sin errores."
-    },
-    {
-      "command": "npm run backend:self-test",
-      "result": "pass",
-      "evidence": "Controlled backend self-test passed: roles, reassignment conflict, lost response e idempotency."
-    }
-  ]
+    "schemaVersion":  1,
+    "week":  8,
+    "commitSha":  "ae0d89afc06ef5c86906d682be9a6ef1184e9bdd",
+    "decision":  "Usar una cola SQLite local con operationId estable y baseVersion para conservar operaciones sinteticas sin conexion. Combinar cambios independientes mediante resolveSync y declarar conflicto cuando los dos lados cambian de forma incompatible el mismo campo. Conservar operaciones no confirmadas hasta recibir confirmacion valida del servidor.",
+    "alternatives":  [
+                         "Guardar operaciones solo en memoria, alternativa descartada porque no conserva los datos al reiniciar.",
+                         "Aplicar siempre la version remota, alternativa descartada porque perderia la intencion local del tecnico.",
+                         "Sobrescribir siempre el servidor con cambios locales, alternativa descartada porque podria imponer una asignacion antigua."
+                     ],
+    "tradeoff":  "SQLite proporciona almacenamiento persistente e identidad estable mediante una clave primaria, pero requiere migraciones transaccionales y pruebas nativas. La deteccion explicita de conflictos evita sobrescribir datos incompatibles, aunque obliga a mantener operaciones pendientes hasta su resolucion.",
+    "requirementIds":  [
+                           "AC-02",
+                           "AC-03",
+                           "AC-04"
+                       ],
+    "verification":  [
+                         {
+                             "command":  "npm test -- --runInBand course-tests/public/week-08.test.ts",
+                             "result":  "pass",
+                             "evidence":  "3 pruebas aprobadas: conflicto por reasignacion, combinacion de campos independientes y deduplicacion por operationId."
+                         },
+                         {
+                             "command":  "npm run typecheck",
+                             "result":  "pass",
+                             "evidence":  "tsc --noEmit finalizo sin errores."
+                         },
+                         {
+                             "command":  "npm run lint",
+                             "result":  "pass",
+                             "evidence":  "eslint . finalizo sin errores."
+                         },
+                         {
+                             "command":  "npm run backend:self-test",
+                             "result":  "pass",
+                             "evidence":  "Controlled backend self-test passed: roles, reassignment conflict, lost response e idempotency."
+                         }
+                     ]
 }
