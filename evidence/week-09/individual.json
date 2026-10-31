@@ -1,0 +1,66 @@
+
+{
+  "schemaVersion": 1,
+  "week": 9,
+  "teamId": "10",
+  "members": [
+    {
+      "studentId": "Sánchez Ventura Axel Eduardo",
+      "commitShas": [],
+      "files": [
+        "src/course-evaluation/index.ts",
+        "src/api/geocoding.ts",
+        "src/api/__tests__/geocoding.test.ts",
+        "docs/resilience-policy.md"
+      ],
+      "tests": [
+        "npm test -- --runInBand course-tests/public/week-09.test.ts",
+        "npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+        "npm run typecheck",
+        "npm run lint",
+        "Consultas HTTP directas al backend academico: success, rate_limited e invalid_coordinates"
+      ],
+      "reviews": [
+        "Revision de los contratos de geocodificacion, autorizacion y escenarios de fallo en course-backend/campusops.mjs y docs/CAMPUSOPS_API.md"
+      ],
+      "prediction": "Las coordenadas validas, incluso (0, 0), se aceptaran. Las respuestas incompletas, HTTP 429, desconexiones y timeouts conservaran la ubicacion manual sin inventar coordenadas. Las consultas repetidas reutilizaran respuestas validas en cache. Los reintentos POST sin clave de idempotencia estable seran rechazados y no habra nuevos reintentos a partir del intento 4.",
+      "command": "npm test -- --runInBand course-tests/public/week-09.test.ts && npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+      "observedResult": "PASS: 4 de 4 pruebas publicas de Semana 9 y 5 de 5 pruebas automatizadas del adaptador. TypeScript y ESLint finalizaron sin errores. En el backend academico se observo una ubicacion valida con coordenadas (0, 0), HTTP 429 con Retry-After de 1 segundo y una respuesta con latitud invalida de 999.",
+      "explanation": "Implemente selectIncidentLocation y planRetry en src/course-evaluation/index.ts. Cree el adaptador src/api/geocoding.ts con autorizacion por sesion, timeout configurable, validacion de respuestas, cache temporal y fallback manual. Agregue cinco pruebas automatizadas y actualice docs/resilience-policy.md con los comportamientos comprobados y las limitaciones pendientes."
+    },
+
+
+
+
+    {
+      "studentId": "....",
+      "commitShas": [],
+      "files": [
+        "...."
+      ],
+      "tests": [],
+      "reviews": [],
+      "prediction": "",
+      "command": "",
+      "observedResult": "",
+      "explanation": ""
+    },
+
+
+
+
+    {
+      "studentId": "....",
+      "commitShas": [],
+      "files": [
+        "...."
+      ],
+      "tests": [],
+      "reviews": [],
+      "prediction": "",
+      "command": "",
+      "observedResult": "",
+      "explanation": ""
+    }
+  ]
+}
