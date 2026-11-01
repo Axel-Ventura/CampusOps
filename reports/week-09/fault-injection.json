@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "week": 9,
+  "commitSha": "REEMPLAZAR_CON_TU_GIT_SHA",
+  "generatedAt": "2026-11-01T21:45:00Z",
+  "checks": [
+    {
+      "id": "geocoding-success",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: success\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+      "evidence": "HTTP 200 OK devolvio payload valido con coordenadas [0,0]."
+    },
+    {
+      "id": "geocoding-incomplete",
+      "status": "pass",
+      "scenarioType": "boundary",
+      "command": "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: incomplete\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+      "evidence": "HTTP 200 OK devolvio objeto incompleto sin coordenadas."
+    },
+    {
+      "id": "geocoding-invalid-coordinates",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: invalid_coordinates\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+      "evidence": "HTTP 200 OK devolvio coordenadas fuera de rango validado por cliente."
+    },
+    {
+      "id": "geocoding-rate-limited",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: rate_limited\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+      "evidence": "HTTP 429 Too Many Requests recibido correctamente con Retry-After."
+    },
+    {
+      "id": "geocoding-server-error",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: server_error\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+      "evidence": "HTTP 500 Internal Server Error retornado."
+    },
+    {
+      "id": "geocoding-malformed",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: malformed\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+      "evidence": "HTTP 200 OK retornado con JSON malformado e incompleto."
+    },
+    {
+      "id": "geocoding-slow-timeout",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "curl -i -m 1 -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: slow\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+      "evidence": "Conexion expiro por timeout de 1001ms capturado por curl."
+    },
+    {
+      "id": "idempotency-timeout-after-commit",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "node course-backend/campusops-self-test.mjs",
+      "evidence": "Operacion reintentada con misma Idempotency-Key no duplico registros."
+    }
+  ]
+}
