@@ -1,4 +1,3 @@
-
 {
   "schemaVersion": 1,
   "week": 9,
@@ -29,24 +28,30 @@
       "explanation": "Implemente selectIncidentLocation y planRetry en src/course-evaluation/index.ts. Cree el adaptador src/api/geocoding.ts con autorizacion por sesion, timeout configurable, validacion de respuestas, cache temporal y fallback manual. Agregue cinco pruebas automatizadas y actualice docs/resilience-policy.md con los comportamientos comprobados y las limitaciones pendientes."
     },
 
-
-
-
+    
     {
-      "studentId": "....",
+      "studentId": "Paniagua González Concepción Guadalupe",
       "commitShas": [],
       "files": [
-        "...."
+        "course-tests/week-09-retry-metrics.test.ts",
+        "scripts/week09-retry-http-check.mjs",
+        "reports/week-09/retry-metrics.json"
       ],
-      "tests": [],
-      "reviews": [],
-      "prediction": "",
-      "command": "",
-      "observedResult": "",
-      "explanation": ""
+      "tests": [
+        "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+        "npm test -- --runInBand course-tests/public/week-09.test.ts",
+        "node scripts/week09-retry-http-check.mjs con npm run backend activo",
+        "npm run typecheck",
+        "npm run lint"
+      ],
+      "reviews": [
+        "Revision de planRetry en src/course-evaluation/index.ts y de src/api/geocoding.ts para distinguir la decision planeada de la ejecucion HTTP real"
+      ],
+      "prediction": "Segun la tarea y docs/resilience-policy.md, planRetry debia reintentar un GET con 429 respetando retryAfterMs (800 ms), permitir reintento ante timeout en el intento 1, no reintentar un GET con timeout en el intento 4, no reintentar un POST sin clave de idempotencia, permitir reintento de un POST con timeout y clave estable, y no reintentar un error 400.",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts && node scripts/week09-retry-http-check.mjs",
+      "observedResult": "PASS: 7 de 7 casos de decision de planRetry y 4 de 4 pruebas publicas de Semana 9. En el backend academico, el escenario rate_limited respondio 429 con Retry-After de 1 segundo en 69 ms; la espera planeada fue de 1000 ms y la espera real medida fue de 1014 ms; el segundo intento con escenario success respondio 200 en 6 ms. Typecheck y lint terminaron sin errores despues de reinstalar dependencias con npm ci.",
+      "explanation": "Agregue course-tests/week-09-retry-metrics.test.ts con siete casos de decision de planRetry, incluidos el limite del intento 4 y el error 400, y scripts/week09-retry-http-check.mjs para medir tiempos reales contra el backend del curso. Con los resultados genere reports/week-09/retry-metrics.json. Separe lo planeado (delayMs) de lo medido, y deje documentado que geocoding.ts hace una sola peticion y no ejecuta reintentos automaticos, por lo que las mediciones HTTP no representan el comportamiento de la app."
     },
-
-
 
 
     {
