@@ -1,0 +1,48 @@
+
+{
+  "schemaVersion": 1,
+  "week": 9,
+  "commitSha": "REEMPLAZAR_POR_SHA_DE_CODIGO",
+  "generatedAt": "REEMPLAZAR_POR_FECHA_ISO",
+  "decision": "Separar la validacion de ubicaciones, el adaptador HTTP y la planificacion de reintentos. Utilizar un backend academico controlado, cache temporal de resultados validos y fallback manual sin inventar coordenadas. Exigir una clave de idempotencia estable antes de permitir reintentos POST.",
+  "alternatives": [
+    "Depender exclusivamente del proveedor de geocodificacion y bloquear la obtencion de ubicaciones cuando no responda.",
+    "Reintentar solicitudes sin limites ni identidad estable, con riesgo de esperas excesivas y operaciones duplicadas.",
+    "Validar las respuestas, usar cache temporal, conservar ubicacion manual y limitar los reintentos mediante una politica explicita."
+  ],
+  "tradeoff": "La alternativa seleccionada mejora la tolerancia a fallos y reduce solicitudes repetidas, pero requiere controlar la expiracion e invalidacion de cache, la autorizacion y la identidad de cada operacion. La cache es temporal y puede conservar una respuesta anterior hasta su expiracion. Las pruebas del backend academico no equivalen a una consulta a un proveedor publico externo. La ejecucion automatica de reintentos HTTP y la integracion completa con la interfaz deben verificarse por separado.",
+  "requirementIds": [
+    "AC-01",
+    "AC-02",
+    "AC-03",
+    "AC-04",
+    "AC-05"
+  ],
+  "verification": [
+    {
+      "command": "npm test -- --runInBand course-tests/public/week-09.test.ts",
+      "result": "pass",
+      "evidence": "Se observaron 4 pruebas aprobadas: geocodificacion valida y fallback manual, reintento POST con clave estable, limite de intentos y Retry-After, y rechazo de POST sin identidad estable."
+    },
+    {
+      "command": "npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+      "result": "pass",
+      "evidence": "Se observaron 5 pruebas aprobadas: autenticacion y ubicacion valida, fallback ante HTTP 429, rechazo de coordenadas invalidas, reutilizacion de cache y timeout con fallback manual. Las respuestas HTTP de estas pruebas fueron simuladas."
+    },
+    {
+      "command": "npm run typecheck",
+      "result": "pass",
+      "evidence": "TypeScript finalizo sin errores en la revision probada."
+    },
+    {
+      "command": "npm run lint",
+      "result": "pass",
+      "evidence": "ESLint finalizo sin errores en la revision probada."
+    },
+    {
+      "command": "Invoke-RestMethod -Uri 'http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba' -Headers @{Authorization='Bearer course-valid-token'; 'X-Course-Actor'='reporter-1'; 'X-Course-Scenario'='success'}",
+      "result": "pass",
+      "evidence": "Consulta directa al backend academico: Edificio de prueba A, latitude 0, longitude 0."
+    }
+  ]
+}

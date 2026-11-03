@@ -31,7 +31,7 @@
     
     {
       "studentId": "Paniagua González Concepción Guadalupe",
-      "commitShas": [],
+      "commitShas": ["e0c704d24eb416788c64c84e340d1de500ce1f36"],
       "files": [
         "course-tests/week-09-retry-metrics.test.ts",
         "scripts/week09-retry-http-check.mjs",
@@ -53,19 +53,31 @@
       "explanation": "Agregue course-tests/week-09-retry-metrics.test.ts con siete casos de decision de planRetry, incluidos el limite del intento 4 y el error 400, y scripts/week09-retry-http-check.mjs para medir tiempos reales contra el backend del curso. Con los resultados genere reports/week-09/retry-metrics.json. Separe lo planeado (delayMs) de lo medido, y deje documentado que geocoding.ts hace una sola peticion y no ejecuta reintentos automaticos, por lo que las mediciones HTTP no representan el comportamiento de la app."
     },
 
-
-    {
-      "studentId": "....",
-      "commitShas": [],
-      "files": [
-        "...."
-      ],
-      "tests": [],
-      "reviews": [],
-      "prediction": "",
-      "command": "",
-      "observedResult": "",
-      "explanation": ""
-    }
+{
+"studentId": "Reyes Torres Manelic Alitzel",
+  "commitShas": [ "2178dc700931bd4ad4613ca896b9f239f01cf1e2"],
+  "files": [
+    "reports/week-09/fault-injection.json"
+  ],
+  "tests": [
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: success\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: rate_limited\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: server_error\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: malformed\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -m 1 -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: slow\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+    "npm test -- --runInBand course-tests/public/week-09.test.ts",
+    "node course-backend/campusops-self-test.mjs"
+  ],
+  "reviews": [
+    "Revisión de los escenarios de fallo de geocodificación en course-backend/campusops.mjs",
+    "Revisión de la política de tolerancia a fallos en docs/resilience-policy.md",
+    "Revisión de la prueba de autoprueba e idempotencia en course-backend/campusops-self-test.mjs"
+  ],
+  "prediction": "Las solicitudes de geocodificación que fallen por limitación de tasa (HTTP 429), errores de servidor (HTTP 500), payload malformado o timeout (slow) serán toleradas por el adaptador activando la ubicación manual de respaldo. La simulación de respuesta perdida tras commit (timeout_after_commit) mantendrá la consistencia al reenviar la misma Idempotency-Key sin duplicar registros.",
+  "command": "npm test -- --runInBand course-tests/public/week-09.test.ts && npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+  "observedResult": "PASS: Las 5 pruebas automatizadas del adaptador de geocodificación pasaron al 100%. Las consultas HTTP directas via curl confirmaron el retorno de status 429 con Retry-After, 500 controlled_failure, JSON corrupto y timeout a los 1001ms. La prueba de autoprueba confirmó que el reintento con clave estable evita duplicación post-commit.",
+  "explanation": "Ejecuté la suite completa de inyección de fallos sobre el servicio de geocodificación evaluando los 7 escenarios definidos. Verifiqué que la capa cliente aplique los fallbacks de ubicación manual sin romper la ejecución, y documenté la prueba de idempotencia en el reporte oficial reports/week-09/fault-injection.json."
+}
   ]
 }
