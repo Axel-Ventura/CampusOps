@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "week": 9,
+  "commitSha": "ff5d9582d702568154e780cdd493b1915ef2f8de",
+  "generatedAt": "2026-11-02T15:15:50Z",
+  "checks": [
+    {
+      "id": "retry-get-rate-limit",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+      "evidence": "GET, status 429, intento 1, retryAfterMs 800. planRetry devolvió retry=true, delayMs=800 (espera planeada, no medida)."
+    },
+    {
+      "id": "retry-get-timeout-first-attempt",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+      "evidence": "GET con timeout en el intento 1. planRetry devolvió retry=true, delayMs=500 (espera progresiva por defecto, planeada)."
+    },
+    {
+      "id": "retry-get-timeout-attempt-4",
+      "status": "pass",
+      "scenarioType": "boundary",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+      "evidence": "GET con timeout en el intento 4. planRetry devolvió retry=false, delayMs=0: se alcanzó el límite de reintentos."
+    },
+    {
+      "id": "retry-post-without-key",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+      "evidence": "POST con 503 y sin clave de idempotencia. planRetry devolvió retry=false, delayMs=0, requiresStableIdempotencyKey=true."
+    },
+    {
+      "id": "retry-post-timeout-stable-key",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+      "evidence": "POST con timeout en el intento 1 y clave estable week09-op-1. planRetry devolvió retry=true, delayMs=500 (planeado), requiresStableIdempotencyKey=false."
+    },
+    {
+      "id": "retry-get-400-no-retry",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+      "evidence": "GET con error HTTP 400 (no temporal). planRetry devolvió retry=false, delayMs=0."
+    },
+    {
+      "id": "retry-get-rate-limit-server-1s",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+      "evidence": "GET, status 429, intento 1, retryAfterMs 1000. planRetry devolvió retry=true, delayMs=1000 (planeado)."
+    },
+    {
+      "id": "public-week-09-tests",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "npm test -- --runInBand course-tests/public/week-09.test.ts",
+      "evidence": "Test Suites: 1 passed. Tests: 4 passed, 4 total."
+    },
+    {
+      "id": "http-rate-limited-retry-after",
+      "status": "pass",
+      "scenarioType": "failure",
+      "command": "npm run backend (terminal 1) y node scripts/week09-retry-http-check.mjs (terminal 2)",
+      "evidence": "Escenario rate_limited: respuesta HTTP 429 con retry-after 1, duración medida de la petición 69 ms."
+    },
+    {
+      "id": "http-wait-and-success",
+      "status": "pass",
+      "scenarioType": "nominal",
+      "command": "node scripts/week09-retry-http-check.mjs",
+      "evidence": "Espera planeada 1000 ms, espera real medida 1014 ms. Segundo intento con escenario success: HTTP 200 en 6 ms."
+    }
+  ],
+  "metrics": {
+    "httpRateLimited": {
+      "attempts": 2,
+      "serverRetryAfterSeconds": 1,
+      "plannedWaitMs": 1000,
+      "measuredWaitMs": 1014,
+      "firstResponseMs": 69,
+      "secondResponseMs": 6,
+      "retryLimitReached": false
+    },
+    "planRetryBoundary": {
+      "attempt": 4,
+      "retry": false,
+      "delayMs": 0,
+      "retryLimitReached": true
+    }
+  },
+  "notes": "delayMs es la espera que planRetry planeó (una decisión, sin petición real). La duración y la espera real son tiempos medidos con performance.now() en scripts/week09-retry-http-check.mjs. Ese script hace la espera a mano: src/api/geocoding.ts hace una sola petición y no ejecuta reintentos automáticos, así que las mediciones HTTP no representan el comportamiento de la app."
+}
