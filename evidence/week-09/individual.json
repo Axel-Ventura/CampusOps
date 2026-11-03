@@ -5,7 +5,7 @@
   "members": [
     {
       "studentId": "Sánchez Ventura Axel Eduardo",
-      "commitShas": [],
+      "commitShas": ["6ca2a576f8c049cd29c29de55aec83143b99240f"],
       "files": [
         "src/course-evaluation/index.ts",
         "src/api/geocoding.ts",
