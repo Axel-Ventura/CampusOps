@@ -1,3 +1,4 @@
+
 import type {
   AuthEvent,
   JsonObject,
@@ -6,7 +7,7 @@ import type {
   RemoteResponse,
   SyncRecord,
 } from './contracts';
-import type { IncidentLocation } from '../campusops/contracts';
+
 
 function pending(name: string): never {
   throw new Error(`${name} must be implemented in the assigned week`);
@@ -37,7 +38,6 @@ const TELEMETRY_SENSITIVE_KEYS = new Set([
 function normalizeTelemetryKey(key: string): string {
   return key.toLowerCase().replace(/[_-]/g, '');
 }
-
 
 function redactTelemetryValue(input: unknown): unknown {
   if (Array.isArray(input)) {
@@ -81,7 +81,11 @@ export function parseRemoteResource(input: unknown): ParseResult {
     return { ok: false, error: 'contract' };
   }
 
-  if (typeof version !== 'number' || !Number.isInteger(version) || version < 0) {
+  if (
+    typeof version !== 'number' ||
+    !Number.isInteger(version) ||
+    version < 0
+  ) {
     return { ok: false, error: 'contract' };
   }
 
@@ -89,7 +93,10 @@ export function parseRemoteResource(input: unknown): ParseResult {
     return { ok: false, error: 'contract' };
   }
 
-  if (payload !== null && (typeof payload !== 'object' || Array.isArray(payload))) {
+  if (
+    payload !== null &&
+    (typeof payload !== 'object' || Array.isArray(payload))
+  ) {
     return { ok: false, error: 'contract' };
   }
 
@@ -103,7 +110,6 @@ export function parseRemoteResource(input: unknown): ParseResult {
     },
   };
 }
-
 
 export function coordinateRefresh(events: readonly AuthEvent[]): Readonly<{
   status: 'anonymous' | 'authenticated';
@@ -136,7 +142,11 @@ export function coordinateRefresh(events: readonly AuthEvent[]): Readonly<{
       }
 
       case 'refreshSucceeded': {
-        if (!refreshPending || !event.token || event.generation === undefined) {
+        if (
+          !refreshPending ||
+          !event.token ||
+          event.generation === undefined
+        ) {
           break;
         }
 
@@ -184,13 +194,14 @@ export function coordinateRefresh(events: readonly AuthEvent[]): Readonly<{
   };
 }
 
-
-
 export function resolveSync(
   base: SyncRecord,
   local: SyncRecord,
   remote: SyncRecord,
-): Readonly<{ kind: 'merged'; fields: JsonObject } | { kind: 'conflict'; fields: readonly string[] }> {
+): Readonly<
+  | { kind: 'merged'; fields: JsonObject }
+  | { kind: 'conflict'; fields: readonly string[] }
+> {
   const keys = new Set([
     ...Object.keys(base.fields),
     ...Object.keys(local.fields),
@@ -205,8 +216,10 @@ export function resolveSync(
     const localValue = local.fields[key];
     const remoteValue = remote.fields[key];
 
-    const localChanged = JSON.stringify(localValue) !== JSON.stringify(baseValue);
-    const remoteChanged = JSON.stringify(remoteValue) !== JSON.stringify(baseValue);
+    const localChanged =
+      JSON.stringify(localValue) !== JSON.stringify(baseValue);
+    const remoteChanged =
+      JSON.stringify(remoteValue) !== JSON.stringify(baseValue);
 
     if (
       localChanged &&
@@ -228,11 +241,9 @@ export function resolveSync(
   return { kind: 'merged', fields: merged };
 }
 
-
-
-export function deduplicateOperations<T extends Readonly<{ operationId: string }>>(
-  operations: readonly T[],
-): readonly T[] {
+export function deduplicateOperations<
+  T extends Readonly<{ operationId: string }>
+>(operations: readonly T[]): readonly T[] {
   const seen = new Set<string>();
 
   return operations.filter((operation) => {
@@ -245,30 +256,165 @@ export function deduplicateOperations<T extends Readonly<{ operationId: string }
   });
 }
 
-export function planRetry(_input: Readonly<{
+// SEMANA 9: REINTENTOS SEGUROS
+
+const BASE_RETRY_DELAY_MS = 500;
+const MAX_RETRY_DELAY_MS = 30000;
+const MAX_RETRY_ATTEMPTS = 4;
+
+export function planRetry(input: Readonly<{
   method: 'GET' | 'POST';
   status: number | 'timeout';
   attempt: number;
   retryAfterMs?: number;
   idempotencyKey?: string;
-}>): Readonly<{ retry: boolean; delayMs: number; requiresStableIdempotencyKey: boolean }> {
-  return pending('planRetry');
+}>): Readonly<{
+  retry: boolean;
+  delayMs: number;
+  requiresStableIdempotencyKey: boolean;
+}> {
+  const {
+    method,
+    status,
+    attempt,
+    retryAfterMs,
+    idempotencyKey,
+  } = input;
+
+  const hasStableKey =
+    typeof idempotencyKey === 'string' &&
+    idempotencyKey.trim().length > 0;
+
+  // Nunca repetir POST sin una identidad estable.
+  if (method === 'POST' && !hasStableKey) {
+    return {
+      retry: false,
+      delayMs: 0,
+      requiresStableIdempotencyKey: true,
+    };
+  }
+
+  // El intento 4 es el limite: no hay otro reintento.
+  if (
+    !Number.isInteger(attempt) ||
+    attempt < 1 ||
+    attempt >= MAX_RETRY_ATTEMPTS
+  ) {
+    return {
+      retry: false,
+      delayMs: 0,
+      requiresStableIdempotencyKey: false,
+    };
+  }
+
+  // Solo se reintentan fallos temporales.
+  const retryable =
+    status === 'timeout' ||
+    status === 429 ||
+    status === 500 ||
+    status === 502 ||
+    status === 503 ||
+    status === 504;
+
+  if (!retryable) {
+    return {
+      retry: false,
+      delayMs: 0,
+      requiresStableIdempotencyKey: false,
+    };
+  }
+
+  // Espera progresiva con limite configurable.
+  const progressiveDelay = Math.min(
+    MAX_RETRY_DELAY_MS,
+    BASE_RETRY_DELAY_MS * 2 ** (attempt - 1),
+  );
+
+  // Retry-After valido tiene prioridad.
+  const hasValidRetryAfter =
+    typeof retryAfterMs === 'number' &&
+    Number.isFinite(retryAfterMs) &&
+    retryAfterMs >= 0;
+
+  const delayMs = hasValidRetryAfter
+    ? Math.ceil(retryAfterMs)
+    : progressiveDelay;
+
+  return {
+    retry: true,
+    delayMs,
+    requiresStableIdempotencyKey: false,
+  };
 }
 
 export function reduceRemoteResponses(_input: Readonly<{
   activeRequestId: string;
   responses: readonly RemoteResponse[];
-}>): Readonly<{ state: 'success' | 'error' | 'loading'; value?: unknown; error?: string }> {
+}>): Readonly<{
+  state: 'success' | 'error' | 'loading';
+  value?: unknown;
+  error?: string;
+}> {
   return pending('reduceRemoteResponses');
 }
 
 export function reducePermissionLifecycle(
   _events: readonly PermissionEvent[],
-): Readonly<{ status: 'available' | 'denied' | 'blocked'; resourceActive: boolean }> {
+): Readonly<{
+  status: 'available' | 'denied' | 'blocked';
+  resourceActive: boolean;
+}> {
   return pending('reducePermissionLifecycle');
 }
 
-/** Week 09: see docs/CAMPUSOPS_API.md; this is not a completed solution. */
-export function selectIncidentLocation(_provider: unknown, _manualLabel: string): IncidentLocation {
-  return pending('selectIncidentLocation');
+// SEMANA 9: UBICACION DEL PROVEEDOR O ALTERNATIVA MANUAL
+
+export function selectIncidentLocation(
+  provider: unknown,
+  manualLabel: string,
+): Readonly<{
+  source: 'provider' | 'manual';
+  label: string;
+  latitude?: number;
+  longitude?: number;
+}> {
+  if (
+    typeof provider === 'object' &&
+    provider !== null &&
+    !Array.isArray(provider)
+  ) {
+    const location = provider as Record<string, unknown>;
+
+    const validLabel =
+      typeof location.label === 'string' &&
+      location.label.trim().length > 0;
+
+    const validLatitude =
+      typeof location.latitude === 'number' &&
+      Number.isFinite(location.latitude) &&
+      location.latitude >= -90 &&
+      location.latitude <= 90;
+
+    const validLongitude =
+      typeof location.longitude === 'number' &&
+      Number.isFinite(location.longitude) &&
+      location.longitude >= -180 &&
+      location.longitude <= 180;
+
+    if (validLabel && validLatitude && validLongitude) {
+      return {
+        source: 'provider',
+        label: location.label as string,
+        latitude: location.latitude as number,
+        longitude: location.longitude as number,
+      };
+    }
+  }
+
+  // Si el proveedor falla, conservar la ubicacion manual.
+  // No inventar coordenadas.
+  return {
+    source: 'manual',
+    label: manualLabel,
+  };
 }

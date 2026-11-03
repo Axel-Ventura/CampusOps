@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "week": 9,
+  "teamId": "10",
+  "members": [
+    {
+      "studentId": "Sánchez Ventura Axel Eduardo",
+      "commitShas": ["6ca2a576f8c049cd29c29de55aec83143b99240f"],
+      "files": [
+        "src/course-evaluation/index.ts",
+        "src/api/geocoding.ts",
+        "src/api/__tests__/geocoding.test.ts",
+        "docs/resilience-policy.md"
+      ],
+      "tests": [
+        "npm test -- --runInBand course-tests/public/week-09.test.ts",
+        "npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+        "npm run typecheck",
+        "npm run lint",
+        "Consultas HTTP directas al backend academico: success, rate_limited e invalid_coordinates"
+      ],
+      "reviews": [
+        "Revision de los contratos de geocodificacion, autorizacion y escenarios de fallo en course-backend/campusops.mjs y docs/CAMPUSOPS_API.md"
+      ],
+      "prediction": "Las coordenadas validas, incluso (0, 0), se aceptaran. Las respuestas incompletas, HTTP 429, desconexiones y timeouts conservaran la ubicacion manual sin inventar coordenadas. Las consultas repetidas reutilizaran respuestas validas en cache. Los reintentos POST sin clave de idempotencia estable seran rechazados y no habra nuevos reintentos a partir del intento 4.",
+      "command": "npm test -- --runInBand course-tests/public/week-09.test.ts && npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+      "observedResult": "PASS: 4 de 4 pruebas publicas de Semana 9 y 5 de 5 pruebas automatizadas del adaptador. TypeScript y ESLint finalizaron sin errores. En el backend academico se observo una ubicacion valida con coordenadas (0, 0), HTTP 429 con Retry-After de 1 segundo y una respuesta con latitud invalida de 999.",
+      "explanation": "Implemente selectIncidentLocation y planRetry en src/course-evaluation/index.ts. Cree el adaptador src/api/geocoding.ts con autorizacion por sesion, timeout configurable, validacion de respuestas, cache temporal y fallback manual. Agregue cinco pruebas automatizadas y actualice docs/resilience-policy.md con los comportamientos comprobados y las limitaciones pendientes."
+    },
+
+    
+    {
+      "studentId": "Paniagua González Concepción Guadalupe",
+      "commitShas": ["e0c704d24eb416788c64c84e340d1de500ce1f36"],
+      "files": [
+        "course-tests/week-09-retry-metrics.test.ts",
+        "scripts/week09-retry-http-check.mjs",
+        "reports/week-09/retry-metrics.json"
+      ],
+      "tests": [
+        "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts",
+        "npm test -- --runInBand course-tests/public/week-09.test.ts",
+        "node scripts/week09-retry-http-check.mjs con npm run backend activo",
+        "npm run typecheck",
+        "npm run lint"
+      ],
+      "reviews": [
+        "Revision de planRetry en src/course-evaluation/index.ts y de src/api/geocoding.ts para distinguir la decision planeada de la ejecucion HTTP real"
+      ],
+      "prediction": "Segun la tarea y docs/resilience-policy.md, planRetry debia reintentar un GET con 429 respetando retryAfterMs (800 ms), permitir reintento ante timeout en el intento 1, no reintentar un GET con timeout en el intento 4, no reintentar un POST sin clave de idempotencia, permitir reintento de un POST con timeout y clave estable, y no reintentar un error 400.",
+      "command": "npm test -- --runInBand course-tests/week-09-retry-metrics.test.ts && node scripts/week09-retry-http-check.mjs",
+      "observedResult": "PASS: 7 de 7 casos de decision de planRetry y 4 de 4 pruebas publicas de Semana 9. En el backend academico, el escenario rate_limited respondio 429 con Retry-After de 1 segundo en 69 ms; la espera planeada fue de 1000 ms y la espera real medida fue de 1014 ms; el segundo intento con escenario success respondio 200 en 6 ms. Typecheck y lint terminaron sin errores despues de reinstalar dependencias con npm ci.",
+      "explanation": "Agregue course-tests/week-09-retry-metrics.test.ts con siete casos de decision de planRetry, incluidos el limite del intento 4 y el error 400, y scripts/week09-retry-http-check.mjs para medir tiempos reales contra el backend del curso. Con los resultados genere reports/week-09/retry-metrics.json. Separe lo planeado (delayMs) de lo medido, y deje documentado que geocoding.ts hace una sola peticion y no ejecuta reintentos automaticos, por lo que las mediciones HTTP no representan el comportamiento de la app."
+    },
+
+{
+"studentId": "Reyes Torres Manelic Alitzel",
+  "commitShas": [ "2178dc700931bd4ad4613ca896b9f239f01cf1e2"],
+  "files": [
+    "reports/week-09/fault-injection.json"
+  ],
+  "tests": [
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: success\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: rate_limited\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: server_error\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: malformed\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "curl -i -m 1 -H \"Authorization: Bearer course-valid-token\" -H \"X-Course-Actor: reporter-1\" -H \"X-Course-Scenario: slow\" \"http://127.0.0.1:4310/v1/geocoding?q=Zona%20de%20prueba\"",
+    "npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+    "npm test -- --runInBand course-tests/public/week-09.test.ts",
+    "node course-backend/campusops-self-test.mjs"
+  ],
+  "reviews": [
+    "Revisión de los escenarios de fallo de geocodificación en course-backend/campusops.mjs",
+    "Revisión de la política de tolerancia a fallos en docs/resilience-policy.md",
+    "Revisión de la prueba de autoprueba e idempotencia en course-backend/campusops-self-test.mjs"
+  ],
+  "prediction": "Las solicitudes de geocodificación que fallen por limitación de tasa (HTTP 429), errores de servidor (HTTP 500), payload malformado o timeout (slow) serán toleradas por el adaptador activando la ubicación manual de respaldo. La simulación de respuesta perdida tras commit (timeout_after_commit) mantendrá la consistencia al reenviar la misma Idempotency-Key sin duplicar registros.",
+  "command": "npm test -- --runInBand course-tests/public/week-09.test.ts && npm test -- --runInBand src/api/__tests__/geocoding.test.ts",
+  "observedResult": "PASS: Las 5 pruebas automatizadas del adaptador de geocodificación pasaron al 100%. Las consultas HTTP directas via curl confirmaron el retorno de status 429 con Retry-After, 500 controlled_failure, JSON corrupto y timeout a los 1001ms. La prueba de autoprueba confirmó que el reintento con clave estable evita duplicación post-commit.",
+  "explanation": "Ejecuté la suite completa de inyección de fallos sobre el servicio de geocodificación evaluando los 7 escenarios definidos. Verifiqué que la capa cliente aplique los fallbacks de ubicación manual sin romper la ejecución, y documenté la prueba de idempotencia en el reporte oficial reports/week-09/fault-injection.json."
+}
+  ]
+}
